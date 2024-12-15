@@ -20,19 +20,22 @@ export default function Navbar() {
           />
           {
             user? 
-              // ---------- USER LOGED-IN --------
-            <div>
-              <div>
-                <img src={assets.star_icon} alt="credit left" />
-                <p>Credit left: <span>{credit}</span></p>
+              // ---------- USER LOGGED-IN --------
+            <div className='flex items-center justify-center gap-8'>
+                              {/* ------- CREDITS ------- */}
+              <div className='bg-[#D7EBFF] flex items-center justify-center gap-2 p-2 rounded-full'>
+                <img src={assets.credit_star} alt={assets.credit_star} className='w-5' />
+                <p className='text-[15px] text-[#4A4A4A]'>Credit left: <span>{credit}</span></p>
               </div>
-              <div>
-                <h1>Hi!{name}</h1>
-                <img src={assets.profile_icon} alt="profile" />
+                                {/* ------- USER NAME ------ */}
+              <div className='group relative flex items-center justify-center gap-2'>
+                <h1 className='text-[2vw]'>Hi! {name}</h1>
+                <img src={assets.profile_icon} alt={assets.profile_icon} className='w-10 drop-shadow-[2px_1px_8px_rgba(0,0,0,0.3)]' />
+                <p className='absolute bottom-0 z-10 right-0 hidden group-hover:block cursor-pointer'>Logout</p>
               </div>
             </div>  
             :
-              // --------- USER LOGED-OUT --------
+              // --------- USER LOGGED-OUT --------
             <div className='flex items-center gap-10 text-[#545454] font-[400]'>
 
                 {/* ------- PRICING ------- */}
