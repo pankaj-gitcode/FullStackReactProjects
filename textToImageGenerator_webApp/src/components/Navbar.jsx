@@ -1,21 +1,29 @@
 import React, { useState } from 'react'
 import { assets } from '../assets/assets'
 import {useNavigate} from 'react-router-dom'
+import {useRecoilState } from 'recoil';
+import { userAtom } from '../atom/Atom';
+
 
 export default function Navbar() {
-  const logoToHomeNav = useNavigate();
-  const navToBuy = useNavigate();
-  const [user, setUser] = useState(1);
+  // const logoToHomeNav = useNavigate();
+  const navigate = useNavigate();
+  // const navToBuy = useNavigate();
+  const [user, setUser] = useRecoilState(userAtom);
+  
   const [credit, setCredit] = useState(4);
   const [name, setName] = useState('Raj');
-   
+
+
+   console.log(user)
   return (
     <div>
+       
       <nav className='flex items-center justify-between p-5'>
             {/* --------- LOGO ---------- */}
         <img src={assets.logo}
          alt="text to image"
-          onClick={()=>logoToHomeNav('/')}
+          onClick={()=>navigate('/')}
             className='cursor-pointer w-28 sm:w-32 lg:w-40'
           />
           {
@@ -23,7 +31,7 @@ export default function Navbar() {
               // ---------- USER LOGGED-IN --------
             <div className='flex items-center justify-center gap-8'>
                               {/* ------- CREDITS ------- */}
-              <div className='bg-[#D7EBFF] flex items-center justify-center gap-2 px-4 sm:px-6 py-1.5 sm:py-3 rounded-full hover:scale-105 transition duration-[.5s]'>
+              <div onClick={()=>navigate('/buy')} className='bg-[#D7EBFF] flex items-center justify-center gap-2 px-4 sm:px-6 py-1.5 sm:py-3 rounded-full hover:scale-105 transition duration-[.5s] cursor-pointer '>
                 <img src={assets.credit_star} alt={assets.credit_star} className='w-5' />
                 <p className='text-[15px] text-[#4A4A4A] text-xs sm:text-sm font-medium'>Credit left: <span>{credit}</span></p>
               </div>
@@ -47,7 +55,7 @@ export default function Navbar() {
             <div className='flex items-center gap-10 text-[#545454] font-[400]'>
 
                 {/* ------- PRICING ------- */}
-                <p className='cursor-pointer' onClick={()=>navToBuy('/buy')}>Pricing</p>
+                <p className='cursor-pointer' onClick={()=>navgate('/buy')}>Pricing</p>
                     {/* -------- LOGIN -------- */}
                 <button className='bg-zinc-800 px-7 sm:px-10 py-2 text-white rounded-full text-small'>Login</button>
             </div> 
