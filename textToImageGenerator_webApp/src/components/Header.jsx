@@ -53,28 +53,41 @@ export default function Header() {
         })
         
         // ------- IMAGES ANIMATION --------
-        imgWrapperRef.current.children.map((imgs,i)=>{
+        // imgWrapperRef.current.children.map((imgs,i)=>{
+        //     ScrollTrigger.create({
+        //         trigger:imgs.childNodes[i],
+        //         start: 'center center',
+        //         end: 'center center',
+        //         scrub:true,
+        //         duration:2,
+        //         onEnter: ()=>gsap.to(imgs.childNodes[i],{scale:1.5, duration:1}),
+        //         onLeave: ()=>gsap.to(imgs.childNodes[i],{scale:1, duration:1}),
+        //         onEnterBack: ()=>gsap.to(imgs.childNodes[i],{scale:1.5, duration:1}),
+        //         onLeaveBack: ()=>gsap.to(imgs.childNodes[i], {scale:1,duration:1}),
+
+        //     })
+        //     }
+            
+        // )  
+        const imgs =  imgWrapperRef.current;
+        for(let i=0; i<=6; i++){
             ScrollTrigger.create({
-                trigger:imgs.childNodes[i],
+                trigger: imgs.childNodes[i],
                 start: 'center center',
                 end: 'center center',
-                scrub:true,
-                duration:2,
-                onEnter: ()=>gsap.to(imgs.childNodes[i],{scale:1.5, duration:1}),
-                onLeave: ()=>gsap.to(imgs.childNodes[i],{scale:1, duration:1}),
-                onEnterBack: ()=>gsap.to(imgs.childNodes[i],{scale:1.5, duration:1}),
-                onLeaveBack: ()=>gsap.to(imgs.childNodes[i], {scale:1,duration:1}),
+                markers:true,
 
+                onEnter: ()=>{gsap.to(imgs.childNodes[i], {scale:1.5, duration:1})},
+                onLeave: ()=>{gsap.to(imgs.childNodes[i],{scale:1, duration:1})},
+                onEnterBack: ()=>{gsap.to(imgs.childNodes[i], {scale:1.5, duration:1})},
+                onLeaveBack: ()=>{gsap.to(imgs.childNodes[i], {scale:1, duration:1})},
             })
         }
-            
-        )   
-     
     
 
     })
     
-    // console.log(imgWrapperRef.current.children[1])
+    // console.log(imgWrapperRef.current.children.length)
 
   return (
     <div className='my-10'>
