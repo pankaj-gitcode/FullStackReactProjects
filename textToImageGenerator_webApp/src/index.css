@@ -11,3 +11,29 @@
   box-sizing: border-box;
   font-family: outfit
 }
+
+/* ------ adding fonts -------- */
+@font-face{
+  font-family: font1;
+  src: url('./assets/fonts/font_1.woff2');
+}
+@font-face{
+  font-family: font2;
+  src: url('./assets/fonts/font_2.woff2');
+}
+@font-face{
+  font-family: font3;
+  src: url('./assets/fonts/font_3.woff2');
+}
+@font-face{
+  font-family: font4;
+  src: url('./assets/fonts/font_4.woff2');
+}
+@font-face{
+  font-family: font5;
+  src: url('./assets/fonts/font_5.woff2');
+}
+@font-face{
+  font-family: font6;
+  src: url('./assets/fonts/font-6.woff2');
+}

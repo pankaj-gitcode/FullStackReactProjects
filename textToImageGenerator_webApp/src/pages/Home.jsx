@@ -1,13 +1,10 @@
 import React from 'react'
+import Header from '../components/Header'
 
 export default function Home() {
   return (
     <div>
-      Home
-      <p className='group'>Hover
-        <span className='hidden group-hover:inline-block'>: HERE</span>
-      </p>
-
+      <Header/>
     </div>
   )
 }
