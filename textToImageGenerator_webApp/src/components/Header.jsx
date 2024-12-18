@@ -1,12 +1,13 @@
 import React, { useRef } from 'react'
 import { assets } from '../assets/assets'
 import {useGSAP} from '@gsap/react'
-import gsap from 'gsap/all';
+import gsap, { ScrollTrigger } from 'gsap/all';
 
 export default function Header() {
     const topTxtRef = useRef();
     const txtRef = useRef();
-
+    const imgWrapperRef = useRef();
+        // ------------------ ANIMATING TEXTS ---------------
     useGSAP(()=>{
             // ------ TOP TXT ANIM -----
         gsap.fromTo(topTxtRef.current.children, {
@@ -32,9 +33,48 @@ export default function Header() {
             ease:'back'
         })
         
-    }) 
+    })
     
+    // --------------------- IMAGE ANIMATION -----------------
+    gsap.registerPlugin(ScrollTrigger);
+    useGSAP(()=>{
+        // ------- CONTAINER & WRAPPER ANIMATION --------
+        gsap.to('#img-wrapper', {
+            xPercent:-800,
+            scrollTrigger:{
+                trigger:'#div-container',
+                markers:true,
+                start:'top 100',
+                end: 'bottom 100',
+                scrub:1.2,
+                pin:true,
+                duration:8
+            }
+        })
+        
+        // ------- IMAGES ANIMATION --------
+        imgWrapperRef.current.children.map((imgs,i)=>{
+            ScrollTrigger.create({
+                trigger:imgs.childNodes[i],
+                start: 'center center',
+                end: 'center center',
+                scrub:true,
+                duration:2,
+                onEnter: ()=>gsap.to(imgs.childNodes[i],{scale:1.5, duration:1}),
+                onLeave: ()=>gsap.to(imgs.childNodes[i],{scale:1, duration:1}),
+                onEnterBack: ()=>gsap.to(imgs.childNodes[i],{scale:1.5, duration:1}),
+                onLeaveBack: ()=>gsap.to(imgs.childNodes[i], {scale:1,duration:1}),
+
+            })
+        }
+            
+        )   
+     
     
+
+    })
+    
+    // console.log(imgWrapperRef.current.children[1])
 
   return (
     <div className='my-10'>
@@ -63,16 +103,29 @@ export default function Header() {
             </div>
         </div>
 
-        <div>
-            <div>
-                <img src={assets.sample_img_1} alt="" />
-                <img src={assets.sample_img_2} alt="" />
-                <img src={assets.sample_img_1} alt="" />
-                <img src={assets.sample_img_2} alt="" />
-                <img src={assets.sample_img_1} alt="" />
-                <img src={assets.sample_img_2} alt="" />
+                {/* ---------- IMAGES ---------- */}
+        <div id='div-container' className='overflow-hidden flex items-center justify-center'>
+            <div id='img-wrapper' ref={imgWrapperRef} className='flex items-center justify-center '>
+                <img src={assets.sample_img_1} alt={assets.sample_img_1}
+                    className='h-[70vh] sm:h-[80vh] md:h-[80vh] lg:h-[90vh]'
+                 />
+                <img src={assets.sample_img_2} alt={assets.sample_img_2}
+                    className='h-[70vh] sm:h-[80vh] md:h-[80vh] lg:h-[90vh]'
+                 />
+                <img src={assets.sample_img_1} alt={assets.sample_img_1}
+                    className='h-[70vh] sm:h-[80vh] md:h-[80vh] lg:h-[90vh]'
+                 />
+                <img src={assets.sample_img_2} alt={assets.sample_img_2}
+                    className='h-[70vh] sm:h-[80vh] md:h-[80vh] lg:h-[90vh]'
+                 />
+                <img src={assets.sample_img_1} alt={assets.sample_img_1}
+                    className='h-[70vh] sm:h-[80vh] md:h-[80vh] lg:h-[90vh]'
+                 />
+                <img src={assets.sample_img_2} alt={assets.sample_img_2}
+                    className='h-[70vh] sm:h-[80vh] md:h-[80vh] lg:h-[90vh]'
+                 />
             </div>
-            <h1>Generated images from imagify</h1>
+            {/* <h1>Generated images from imagify</h1> */}
         </div>
 
     </div>
