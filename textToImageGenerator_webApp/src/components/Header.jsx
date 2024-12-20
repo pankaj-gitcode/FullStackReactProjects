@@ -6,7 +6,9 @@ import gsap, { ScrollTrigger } from 'gsap/all';
 export default function Header() {
     const topTxtRef = useRef();
     const txtRef = useRef();
+    const imgContainerRef = useRef();
     const imgWrapperRef = useRef();
+
         // ------------------ ANIMATING TEXTS ---------------
     useGSAP(()=>{
             // ------ TOP TXT ANIM -----
@@ -36,56 +38,38 @@ export default function Header() {
     })
     
     // --------------------- IMAGE ANIMATION -----------------
-    gsap.registerPlugin(ScrollTrigger);
-    useGSAP(()=>{
+        gsap.registerPlugin(ScrollTrigger);
         // ------- CONTAINER & WRAPPER ANIMATION --------
-        gsap.to('#img-wrapper', {
-            xPercent:-800,
-            scrollTrigger:{
-                trigger:'#div-container',
-                markers:true,
-                start:'top 100',
-                end: 'bottom 100',
-                scrub:1.2,
-                pin:true,
-                duration:8
-            }
-        })
-        
-        // ------- IMAGES ANIMATION --------
-        // imgWrapperRef.current.children.map((imgs,i)=>{
-        //     ScrollTrigger.create({
-        //         trigger:imgs.childNodes[i],
-        //         start: 'center center',
-        //         end: 'center center',
-        //         scrub:true,
-        //         duration:2,
-        //         onEnter: ()=>gsap.to(imgs.childNodes[i],{scale:1.5, duration:1}),
-        //         onLeave: ()=>gsap.to(imgs.childNodes[i],{scale:1, duration:1}),
-        //         onEnterBack: ()=>gsap.to(imgs.childNodes[i],{scale:1.5, duration:1}),
-        //         onLeaveBack: ()=>gsap.to(imgs.childNodes[i], {scale:1,duration:1}),
+        useGSAP(()=>{
+            const imgContainer = imgContainerRef.current;
+            const imgWrapper = imgWrapperRef.current;
+            const totalContentWidth = imgWrapper.scrollWidth; // total_images_width + imgWrapperDiv_padding[L+R]
+            const images = gsap.utils.toArray('.image');
+            console.log(images, images.length)
 
-        //     })
-        //     }
-            
-        // )  
-        const imgs =  imgWrapperRef.current;
-        for(let i=0; i<=6; i++){
-            ScrollTrigger.create({
-                trigger: imgs.childNodes[i],
-                start: 'center center',
-                end: 'center center',
-                markers:true,
-
-                onEnter: ()=>{gsap.to(imgs.childNodes[i], {scale:1.5, duration:1})},
-                onLeave: ()=>{gsap.to(imgs.childNodes[i],{scale:1, duration:1})},
-                onEnterBack: ()=>{gsap.to(imgs.childNodes[i], {scale:1.5, duration:1})},
-                onLeaveBack: ()=>{gsap.to(imgs.childNodes[i], {scale:1, duration:1})},
+            gsap.to(imgWrapper,{
+                x: -100 * (images.length-1),
+                scrollTrigger:{
+                    trigger:imgContainer,
+                    start: 'top 20%',
+                    end: ()=>"+=" + imgWrapper.offsetWidth,
+                    // end: ()=>`+=${totalContentWidth}`,
+                    markers:true,
+                    scrub:true,
+                    pin:true,
+                    anticipatePin:1
+                }
             })
-        }
+        })
+
+        // ------- IMAGES ANIMATION --------
+        
+
+        
+        
     
 
-    })
+    
     
     // console.log(imgWrapperRef.current.children.length)
 
@@ -117,28 +101,17 @@ export default function Header() {
         </div>
 
                 {/* ---------- IMAGES ---------- */}
-        <div id='div-container' className='overflow-hidden flex items-center justify-center'>
-            <div id='img-wrapper' ref={imgWrapperRef} className='flex items-center justify-center '>
-                <img src={assets.sample_img_1} alt={assets.sample_img_1}
-                    className='h-[70vh] sm:h-[80vh] md:h-[80vh] lg:h-[90vh]'
-                 />
-                <img src={assets.sample_img_2} alt={assets.sample_img_2}
-                    className='h-[70vh] sm:h-[80vh] md:h-[80vh] lg:h-[90vh]'
-                 />
-                <img src={assets.sample_img_1} alt={assets.sample_img_1}
-                    className='h-[70vh] sm:h-[80vh] md:h-[80vh] lg:h-[90vh]'
-                 />
-                <img src={assets.sample_img_2} alt={assets.sample_img_2}
-                    className='h-[70vh] sm:h-[80vh] md:h-[80vh] lg:h-[90vh]'
-                 />
-                <img src={assets.sample_img_1} alt={assets.sample_img_1}
-                    className='h-[70vh] sm:h-[80vh] md:h-[80vh] lg:h-[90vh]'
-                 />
-                <img src={assets.sample_img_2} alt={assets.sample_img_2}
-                    className='h-[70vh] sm:h-[80vh] md:h-[80vh] lg:h-[90vh]'
-                 />
+        <div ref={imgContainerRef} id="imgContainer" className="   overflow-hidden">
+            <div ref={imgWrapperRef} id="imgWrapper" className='flex gap-2 '>
+                {
+                    assets.scrollImages.map((imgs,i)=>
+                        <img key={i}
+                         src={imgs} alt={imgs}
+                         className='image w-[30vw] transition-transform duration-300'
+                          />
+                    )
+                }
             </div>
-            {/* <h1>Generated images from imagify</h1> */}
         </div>
 
     </div>
