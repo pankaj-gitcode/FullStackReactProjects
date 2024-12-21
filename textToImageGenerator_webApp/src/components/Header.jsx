@@ -48,12 +48,14 @@ export default function Header() {
             console.log(images, images.length)
 
             gsap.to(imgWrapper,{
-                x: -100 * (images.length-1),
+                // x: -100 * (images.length-1),
+                xPercent: (imgWrapper.offsetWidth - window.innerWidth),
                 scrollTrigger:{
                     trigger:imgContainer,
                     start: 'top 20%',
-                    end: ()=>"+=" + imgWrapper.offsetWidth,
+                    // end: ()=>"+=" + imgWrapper.offsetWidth,
                     // end: ()=>`+=${totalContentWidth}`,
+                    // end: "+=" + (imgWrapper.offsetWidth - window.innerWidth),
                     markers:true,
                     scrub:true,
                     pin:true,
