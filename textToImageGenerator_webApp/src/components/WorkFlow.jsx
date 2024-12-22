@@ -6,7 +6,8 @@ import gsap, { ScrollTrigger } from 'gsap/all';
 export default function WorkFlow() {
     const [pos, setPos] = useState({x:0, y:0});
     const workFlowRef = useRef();
-    const imgRef = useRef();
+    const imgRef = useRef([]);
+    const stepDivRef = useRef([]);
 
     // ---------- WOKFLOW ANIMATION -----
     gsap.registerPlugin(ScrollTrigger)
@@ -32,20 +33,23 @@ export default function WorkFlow() {
     // Image with text mouse movement
     // const workFlow = workFlowRef.current; 
 
-    const mouseMove = (e)=>{
+    const mouseMove = (e,i)=>{
         const xCord = e.clientX; const yCord = e.clientY;
         setPos(pos=>({...pos,x:xCord, y:yCord}))
 
         // console.log("POS=>", pos)
-
-        imgRef.current.childNodes[1].style.opacity=1
+        
+        stepDivRef.current[i].childNodes[1].style.opacity = 1
+        
+        stepDivRef.current[i].childNodes[1].style.left = `${pos.x/2}px`
+        
     }
-    const mouseLeave = ()=>{
-        console.log('hi')
+    const mouseLeave = (i)=>{
+        stepDivRef.current[i].childNodes[1].style.opacity = 0;
     }
 
   return (
-    <div className='flex flex-col items-center justify-center'>
+    <div className='min-h-[100vh] flex flex-col items-center justify-center overflow-hidden '>
                 {/* --------- TITLE ---------- */}
         <div className='flex flex-col items-center justify-center pb-10'>
             <h1 className='text-xl sm:text-3xl lg:text-5xl'>How it works</h1>
@@ -57,14 +61,16 @@ export default function WorkFlow() {
                 stepsData.map((elem,i)=>
                 <div key={i} className='bg-white flex sm:flex-row gap-2 sm:pl-2 sm:pr-20 
                  w-[50vw] sm:w-[76vw] lg:w-[50vw] py-8 shadow-lg rounded-lg border-[#E1E1E1] border-[1px]
-                 flex-col items-center justify-center cursor-pointer relative
+                 flex-col items-center justify-center cursor-pointer relative 
                  '
-                 onMouseMove={(e)=>mouseMove(e)} onMouseLeave={mouseLeave}
+                 ref={el=>stepDivRef.current[i] = el}
+                 onMouseMove={(e)=>mouseMove(e,i)} onMouseLeave={()=>mouseLeave(i)}
                  >
 
                         {/* --------- IMAGE ------- */}
                     <img src={elem.icon} alt={elem.icon} className='ml-2 sm:pl-0 '/>
-                    <img src={elem.image} alt={elem.image} ref={imgRef} className='absolute z-10 w-60 left-0 top-0 opacity-0'/>
+                    <img src={elem.image} alt={elem.image} ref={imgRef} className='absolute  h-[50vh]  left-0 top-0 opacity-0
+                     mix-blend-none'/>
 
                             {/* ------- DESCRIPTION ----- */}
                     <div className='flex flex-col items-center sm:items-start '>
