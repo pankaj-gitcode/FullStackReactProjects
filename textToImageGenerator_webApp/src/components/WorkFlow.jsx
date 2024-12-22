@@ -1,59 +1,51 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { assets, stepsData } from '../assets/assets'
 import { useGSAP } from '@gsap/react';
 import gsap, { ScrollTrigger } from 'gsap/all';
 
 export default function WorkFlow() {
+    const [pos, setPos] = useState({x:0, y:0});
     const workFlowRef = useRef();
+    const imgRef = useRef();
 
-    // useGSAP(()=>{
-    //     const workFlow = workFlowRef.current;
-    //     gsap.registerPlugin(ScrollTrigger);
-
-    //     // ---- 1st worfFlow -------
-    //     gsap.fromTo(workFlow.childNodes[0],{
-    //         x: -20,
-    //         opacity:0,
-    //     },{
-    //         x:0,
-    //         opacity:1, yoyoEase:true, duration:3, scrub:1.2,
-            
-    //     })
-    //     // ---- 2nd worfFlow -------
-    //     gsap.fromTo(workFlow.childNodes[1],{
-    //         x:20,opacity:0, 
-    //     },{
-    //         x:0,opacity:1, yoyoEase:true,duration:3,scrub:1.2
-    //     } )
-    //     // ---- 3rd worfFlow -------
-    //     gsap.fromTo(workFlow.childNodes[2], {
-    //         x:-20,opacity:0,
-    //     },{
-    //         x:0,opacity:1,yoyoEase:true, duration:3,
-    //     })
-
-        
-    // })
-
+    // ---------- WOKFLOW ANIMATION -----
+    gsap.registerPlugin(ScrollTrigger)
     useGSAP(()=>{
-        gsap.registerPlugin(ScrollTrigger)
         const workFlow = workFlowRef.current;
+
+        // animate each div showing steps
         workFlow.childNodes.forEach((elem,i)=>{
             const direction = i%2 === 0? 20: -20; //filtered x direction as per odd & even
             gsap.fromTo(elem,{
                 x: direction,opacity:0
             },{
-                x:0,opacity:1,scrollTrigger:{
+                x:0,opacity:1,duration:1, scrollTrigger:{
                     trigger:elem, markers:true,
                     start:'top 80%', end:'bottom 20%',
-                    duration:2, scrub:1.2,
+                     scrub:1,
                 }
             })
         })
+
     })
 
+    // Image with text mouse movement
+    // const workFlow = workFlowRef.current; 
+
+    const mouseMove = (e)=>{
+        const xCord = e.clientX; const yCord = e.clientY;
+        setPos(pos=>({...pos,x:xCord, y:yCord}))
+
+        // console.log("POS=>", pos)
+
+        imgRef.current.childNodes[1].style.opacity=1
+    }
+    const mouseLeave = ()=>{
+        console.log('hi')
+    }
+
   return (
-    <div className='flex flex-col items-center justify-center mb-96'>
+    <div className='flex flex-col items-center justify-center'>
                 {/* --------- TITLE ---------- */}
         <div className='flex flex-col items-center justify-center pb-10'>
             <h1 className='text-xl sm:text-3xl lg:text-5xl'>How it works</h1>
@@ -65,10 +57,15 @@ export default function WorkFlow() {
                 stepsData.map((elem,i)=>
                 <div key={i} className='bg-white flex sm:flex-row gap-2 sm:pl-2 sm:pr-20 
                  w-[50vw] sm:w-[76vw] lg:w-[50vw] py-8 shadow-lg rounded-lg border-[#E1E1E1] border-[1px]
-                 flex-col items-center justify-center 
-                 '>
+                 flex-col items-center justify-center cursor-pointer relative
+                 '
+                 onMouseMove={(e)=>mouseMove(e)} onMouseLeave={mouseLeave}
+                 >
+
                         {/* --------- IMAGE ------- */}
                     <img src={elem.icon} alt={elem.icon} className='ml-2 sm:pl-0 '/>
+                    <img src={elem.image} alt={elem.image} ref={imgRef} className='absolute z-10 w-60 left-0 top-0 opacity-0'/>
+
                             {/* ------- DESCRIPTION ----- */}
                     <div className='flex flex-col items-center sm:items-start '>
                         <h1 className='text-10 sm:text-xl'>{elem.title}</h1>
