@@ -38,31 +38,31 @@ export default function Header() {
     })
     
     // --------------------- IMAGE ANIMATION -----------------
-        gsap.registerPlugin(ScrollTrigger);
-        // ------- CONTAINER & WRAPPER ANIMATION --------
-        useGSAP(()=>{
-            const imgContainer = imgContainerRef.current;
-            const imgWrapper = imgWrapperRef.current;
-            const totalContentWidth = imgWrapper.scrollWidth; // total_images_width + imgWrapperDiv_padding[L+R]
-            const images = gsap.utils.toArray('.image');
-            console.log(images, images.length)
+        // gsap.registerPlugin(ScrollTrigger);
+        // // ------- CONTAINER & WRAPPER ANIMATION --------
+        // useGSAP(()=>{
+        //     const imgContainer = imgContainerRef.current;
+        //     const imgWrapper = imgWrapperRef.current;
+        //     const totalContentWidth = imgWrapper.scrollWidth; // total_images_width + imgWrapperDiv_padding[L+R]
+        //     const images = gsap.utils.toArray('.image');
+        //     console.log(images, images.length)
 
-            gsap.to(imgWrapper,{
-                // x: -100 * (images.length-1),
-                xPercent: (imgWrapper.offsetWidth - window.innerWidth),
-                scrollTrigger:{
-                    trigger:imgContainer,
-                    start: 'top 20%',
-                    // end: ()=>"+=" + imgWrapper.offsetWidth,
-                    // end: ()=>`+=${totalContentWidth}`,
-                    // end: "+=" + (imgWrapper.offsetWidth - window.innerWidth),
-                    markers:true,
-                    scrub:true,
-                    pin:true,
-                    anticipatePin:1
-                }
-            })
-        })
+        //     gsap.to(imgWrapper,{
+        //         // x: -100 * (images.length-1),
+        //         xPercent: (imgWrapper.offsetWidth - window.innerWidth),
+        //         scrollTrigger:{
+        //             trigger:imgContainer,
+        //             start: 'top 20%',
+        //             // end: ()=>"+=" + imgWrapper.offsetWidth,
+        //             // end: ()=>`+=${totalContentWidth}`,
+        //             end: "+=" + (imgWrapper.offsetWidth - window.innerWidth),
+        //             markers:true,
+        //             scrub:true,
+        //             pin:true,
+        //             anticipatePin:1
+        //         }
+        //     })
+        // })
 
         // ------- IMAGES ANIMATION --------
         
@@ -103,7 +103,7 @@ export default function Header() {
         </div>
 
                 {/* ---------- IMAGES ---------- */}
-        <div ref={imgContainerRef} id="imgContainer" className="   overflow-hidden">
+        {/* <div ref={imgContainerRef} id="imgContainer" className="   overflow-hidden">
             <div ref={imgWrapperRef} id="imgWrapper" className='flex gap-2 '>
                 {
                     assets.scrollImages.map((imgs,i)=>
@@ -114,7 +114,7 @@ export default function Header() {
                     )
                 }
             </div>
-        </div>
+        </div> */}
 
     </div>
   )
