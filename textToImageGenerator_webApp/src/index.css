@@ -37,3 +37,8 @@
   font-family: font6;
   src: url('./assets/fonts/font-6.woff2');
 }
+
+ /* --------- INTRODUCTION-Page -------- */
+ .txt-shadow{
+  text-shadow: 2px 2px 12px rgba(0,0,0,0.3);
+ }

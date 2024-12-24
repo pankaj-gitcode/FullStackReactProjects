@@ -21,7 +21,7 @@ export default function WorkFlow() {
                 x: direction,opacity:0
             },{
                 x:0,opacity:1,duration:1, scrollTrigger:{
-                    trigger:elem, markers:true,
+                    trigger:elem, markers:false,
                     start:'top 80%', end:'bottom 20%',
                      scrub:1,
                 }
