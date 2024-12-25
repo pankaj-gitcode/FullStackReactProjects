@@ -66,13 +66,7 @@ export default function Header() {
 
         // ------- IMAGES ANIMATION --------
         
-
-        
-        
-    
-
-    
-    
+   
     // console.log(imgWrapperRef.current.children.length)
 
   return (
@@ -115,6 +109,20 @@ export default function Header() {
                 }
             </div>
         </div> */}
+
+        <div className='grid grid-cols-1 items-center justify-center gap-2
+        sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 pt-20'>
+            {
+                assets.scrollImages.map((imgs,i)=>
+                    <div key={i} className=''>
+                        <img src={imgs} alt={imgs} 
+                            className='rounded-lg drop-shadow-2xl sm:w-[60vw]
+                            hover:scale-105 cursor-pointer duration-300 ease-in-out'
+                        />
+                    </div>
+                )
+            }
+        </div>
 
     </div>
   )

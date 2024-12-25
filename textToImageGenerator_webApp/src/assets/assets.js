@@ -35,7 +35,8 @@ export const assets = {
       sample_img_2,
       sample_img_3,
       sample_img_4,
-      sample_img_5
+      sample_img_5,
+      sample_img_2,
     ],
     email_icon,
     lock_icon,
