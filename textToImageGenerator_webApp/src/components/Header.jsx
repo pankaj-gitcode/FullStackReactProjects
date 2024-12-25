@@ -70,7 +70,7 @@ export default function Header() {
     // console.log(imgWrapperRef.current.children.length)
 
   return (
-    <div className='my-10'>
+    <div className='mt-10'>
         <div className='flex flex-col items-center justify-center'>
         
                 {/* ------ TOP TXT ----- */}
@@ -90,7 +90,8 @@ export default function Header() {
                 {/* ------- GENERATE BUTTON ------- */}
             <div className='py-6'>
                 <button className='bg-black text-white flex items-center justify-center 
-                px-5 sm:px-10 py-3 rounded-full text-sm gap-2 cursor-pointer active:scale-105 duration-300'>Generate Images 
+                        px-5 sm:px-10 py-3 rounded-full text-sm gap-2 cursor-pointer active:scale-105 duration-300'>Generate Images 
+                    
                     <img src={assets.star_group} alt={assets.star_group} className='w-8' />
                 </button>
             </div>
@@ -111,18 +112,19 @@ export default function Header() {
         </div> */}
 
         <div className='grid grid-cols-1 items-center justify-center gap-2
-        sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 pt-20'>
-            {
-                assets.scrollImages.map((imgs,i)=>
-                    <div key={i} className=''>
-                        <img src={imgs} alt={imgs} 
-                            className='rounded-lg drop-shadow-2xl sm:w-[60vw]
-                            hover:scale-105 cursor-pointer duration-300 ease-in-out'
-                        />
-                    </div>
-                )
-            }
+            sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 pt-20'>
+                {
+                    assets.scrollImages.map((imgs,i)=>
+                        <div key={i} className=''>
+                            <img src={imgs} alt={imgs} 
+                                className='rounded-lg drop-shadow-2xl sm:w-[60vw]
+                                hover:scale-105 cursor-pointer duration-300 ease-in-out'
+                            />
+                        </div>
+                    )
+                }
         </div>
+        <h1 className='text-center text-xl  md:text-[2vw] lg:text-[1.2vw] text-neutral-600 pt-5'>Generated images from imagify</h1>
 
     </div>
   )

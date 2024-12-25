@@ -27,7 +27,7 @@ export default function Introduction() {
     })
 
   return (
-    <div className='min-h-[100vh] title'>
+    <div className=' title min-h-[90vh] sm:min-h-[80vh]'>
         <div className='flex flex-col items-center txt-shadow'>
             <h1 className='text-2xl sm:text-3xl lg:text-5xl'>Create AI Images</h1>
             <p className='text-sm sm:text-lg text-gray-500 pt-2'>Turn your imagination into visuals</p>

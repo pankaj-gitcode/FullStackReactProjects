@@ -49,7 +49,7 @@ export default function WorkFlow() {
     }
 
   return (
-    <div className='min-h-[100vh] flex flex-col items-center justify-center overflow-hidden '>
+    <div className='min-h-[100vh] flex flex-col items-center justify-center overflow-hidden pt-5'>
                 {/* --------- TITLE ---------- */}
         <div className='flex flex-col items-center justify-center pb-10'>
             <h1 className='text-xl sm:text-3xl lg:text-5xl'>How it works</h1>
