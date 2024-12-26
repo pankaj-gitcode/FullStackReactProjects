@@ -17,7 +17,7 @@ export default function Navbar() {
 
    console.log(user)
   return (
-    <div>
+    <div id='navbar'>
        
       <nav className='flex items-center justify-between p-5'>
             {/* --------- LOGO ---------- */}

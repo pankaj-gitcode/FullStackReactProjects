@@ -2,6 +2,7 @@ import React from 'react'
 import { assets } from '../assets/assets'
 
 export default function GenerateBtn(){
+   
     return(<>
         <div className='flex items-center justify-center py-12'>
             <div className='flex flex-col flex-wrap items-center justify-center'>
@@ -18,6 +19,9 @@ export default function GenerateBtn(){
                     />
                 </button>
             </div>
+            
         </div>
+        
+        
     </>)
 }

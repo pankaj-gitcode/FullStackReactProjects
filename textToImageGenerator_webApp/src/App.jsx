@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom';
+import { assets } from './assets/assets';
 
 
 const Home = lazy(()=>import('./pages/Home'));
@@ -13,7 +14,7 @@ export default function App(){
 
   return(<>
     <div className='px-4 sm:px-10 md:px-14 lg:px-28 min-h-screen
-     bg-gradient-to-b from-teal-50 to-orange-50 '>
+     bg-gradient-to-b from-teal-50 to-orange-50 relative'>
 
       <Suspense fallback={<p>Loading...</p>}>
         <Navbar/>
@@ -21,9 +22,15 @@ export default function App(){
             <Route path='/' element={<Home />}/>
             <Route path='/result' element={<Result/>}/>
             <Route path='/buy' element={<BuyCredit/>}/>
+            
           </Routes>
       <Footer />
       </Suspense>
+      <div className='absolute right-6 bottom-24 bg-yellow-300 rounded-full border-2'>
+        <a href="#navbar">
+          <img src={assets.arrow_up} alt={assets.arrow_up} className='w-8'/> 
+        </a>
+      </div>
     </div>
   </>)
 }
