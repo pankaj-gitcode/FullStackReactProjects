@@ -5,7 +5,8 @@ import { Route, Routes } from 'react-router-dom';
 const Home = lazy(()=>import('./pages/Home'));
 const Result = lazy(()=>import('./pages/Result'));
 const BuyCredit = lazy(()=>import('./pages/BuyCredit'));
-const Navbar = lazy(()=>import('./components/Navbar'))
+const Navbar = lazy(()=>import('./components/Navbar'));
+const Footer = lazy(()=>import('./components/Footer'));
 
 
 export default function App(){
@@ -21,10 +22,8 @@ export default function App(){
             <Route path='/result' element={<Result/>}/>
             <Route path='/buy' element={<BuyCredit/>}/>
           </Routes>
-
+      <Footer />
       </Suspense>
-    
-
     </div>
   </>)
 }
