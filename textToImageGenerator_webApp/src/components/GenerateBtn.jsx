@@ -1,0 +1,22 @@
+import React from 'react'
+import { assets } from '../assets/assets'
+
+export default function GenerateBtn(){
+    return(<>
+        <div className='flex items-center justify-center py-12'>
+            <div className='flex flex-col flex-wrap items-center justify-center'>
+                
+                <h1 className='text-3xl sm:text-3xl md:text-5xl pb-6'>See the magix. Try now</h1>
+
+                <button className='flex items-center justify-center 
+                bg-black text-white px-10 py-3 rounded-full'>
+
+                    <p className='text-2xl'>Generate Images</p>
+                    <img src={assets.star_group} alt={assets.star_group} 
+                        className='w-16'
+                    />
+                </button>
+            </div>
+        </div>
+    </>)
+}
