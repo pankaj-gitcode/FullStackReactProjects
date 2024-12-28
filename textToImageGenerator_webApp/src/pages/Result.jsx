@@ -16,14 +16,17 @@ export default function Result() {
         {/* ---------- INPUT, BUTTON ------- */}
       <div className='bg-neutral-500 flex flex-col sm:flex-row text-white rounded-full'>
         <input type="text" placeholder='Describe what you want to generate'
-        className='flex-1 bg-transparent w-96 max-sm:w-30 pl-6 pr-16 py-1 text-lg outline-none' />
+        className='flex-1 bg-transparent w-96 max-sm:w-30 pl-6 pr-16 py-2 md:py-2 text-lg sm:text-sm outline-none' />
         <button className='bg-zinc-900 rounded-full text-xl sm:text-sm px-5'>Generate</button>
       </div>
 
       {/* --------- DOWNLOAD -------- */}
-      <div>
-        <p>Generate Another</p>
-        <a href="" download>Download</a>
+      <div className='flex items-center justify-center gap-3 mt-5'>
+        <p className='border-2 border-gray-500 rounded-full
+         text-black text-center lg:px-8 py-2 cursor-pointer '>Generate Another</p>
+
+        <a href="" download className='flex-1 bg-zinc-900 rounded-full
+         text-white text-center px-9 py-2 coursor-pointer'>Download</a>
       </div>
 
     </form>
