@@ -3,7 +3,7 @@ import { assets } from '../assets/assets'
 
 export default function Result() {
   return (<>
-    <form className='flex flex-col items-center gap-2'>
+    <form className='flex flex-col items-center gap-2 py-10'>
         {/* --------- IMAGE, LINE, LOADING ---------- */}
       <div className='relative'>
         <img src={assets.scrollImages[0]} alt={assets.scrollImages[0]} 
