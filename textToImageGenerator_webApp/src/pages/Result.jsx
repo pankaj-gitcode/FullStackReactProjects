@@ -2,10 +2,17 @@ import React, { useState } from 'react'
 import { assets } from '../assets/assets'
 
 export default function Result() {
-  const [isImgLoading, setIsImgLoading] = useState(true);
+  const [isImgLoading, setIsImgLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [input, setInput] = useState('') // store user's prompt
+
+  const submitHandler = async(e)=>{
+    console.log('Hello')
+  }
+
+  console.log("INPUT=> ", input)
   return (<>
-    <form className='flex flex-col items-center gap-2 py-10'>
+    <form onSubmit={submitHandler} className='flex flex-col items-center gap-2 py-10'>
         {/* --------- IMAGE, LINE, LOADING ---------- */}
       <div className='relative'>
         <img src={assets.scrollImages[0]} alt={assets.scrollImages[0]} 
@@ -18,11 +25,13 @@ export default function Result() {
         {/* ---------- INPUT, BUTTON ------- */}
       {
         !isImgLoading && 
-        <div className='bg-neutral-500 flex flex-col sm:flex-row rounded-full'>
-        <input type="text" placeholder='Describe what you want to generate'
-          className='flex-1 bg-transparent w-96 max-sm:w-30 pl-6 pr-16 py-2 md:py-2 text-lg sm:text-sm outline-none text-[#e0e0e0]' />
+        <div className='bg-neutral-500 flex flex-col sm:flex-row rounded-full mt-3'>
         
-        <button className='bg-zinc-900 rounded-full text-xl sm:text-sm px-5 active:scale-105 ease-in-out duration-300 text-white'>Generate</button>
+        <input type="text" onChange={(e)=>setInput(e.target.value)} value={input}
+        placeholder='Describe what you want to generate'
+          className='flex-1 bg-transparent w-96 max-sm:w-30 pl-6 pr-16 py-3 md:py-2 text-lg sm:text-sm outline-none text-[#e0e0e0]' />
+        
+        <button className='bg-zinc-900 rounded-full text-xl sm:text-sm px-2 sm:px-5 active:scale-105 ease-in-out duration-300 text-white'>Generate</button>
       </div>
       }
 
