@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { assets } from '../assets/assets'
 
 export default function Result() {
-  const [isImgLoading, setIsImgLoading] = useState(false);
+  const [isImgLoading, setIsImgLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   return (<>
     <form className='flex flex-col items-center gap-2 py-10'>
@@ -11,7 +11,7 @@ export default function Result() {
         <img src={assets.scrollImages[0]} alt={assets.scrollImages[0]} 
           className='max-w-sm rounded'
         />
-        <span className='absolute h-1 bg-blue-500 left-0 bottom-0 min-w-full transition-all ease-in-out'/>
+        <span className={`absolute h-1 bg-blue-500 left-0 bottom-0 ${isImgLoading?'': `min-w-full transition-all ease-in-out`}`}/>
       </div>
         <p className={isLoading?`text-[6vw] sm:text-[2vw] md:text-[3.8vw] lg:text-[1.5vw]`: `hidden`}>Loading...</p>
 
