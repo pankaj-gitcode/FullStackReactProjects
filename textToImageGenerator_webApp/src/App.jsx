@@ -8,6 +8,7 @@ const Result = lazy(()=>import('./pages/Result'));
 const BuyCredit = lazy(()=>import('./pages/BuyCredit'));
 const Navbar = lazy(()=>import('./components/Navbar'));
 const Footer = lazy(()=>import('./components/Footer'));
+const Login = lazy(()=>import('./components/Login'));
 
 
 export default function App(){
@@ -18,6 +19,7 @@ export default function App(){
 
       <Suspense fallback={<p>Loading...</p>}>
         <Navbar/>
+        <Login/>
           <Routes>
             <Route path='/' element={<Home />}/>
             <Route path='/result' element={<Result/>}/>

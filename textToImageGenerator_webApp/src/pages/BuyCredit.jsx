@@ -2,19 +2,22 @@ import React, { useRef } from 'react'
 import { plans } from '../assets/assets'
 import { useGSAP } from '@gsap/react';
 import gsap, { ScrollTrigger } from 'gsap/all';
+import { useRecoilValue } from 'recoil';
+import { userAtom } from '../atom/Atom';
 
 export default function BuyCredit() {
   const cardRef = useRef([]);
   const card = cardRef.current;
+  const user = useRecoilValue(userAtom);
   useGSAP(()=>{
     gsap.registerPlugin(ScrollTrigger);
 
     for(let i=0; i<=cardRef.current.length; i++){
       gsap.to(cardRef.current[i], {
-        transform: 'rotate(-60deg)',
+        transform: 'rotate(-10deg)',
     
         stagger:1.2,
-        opacity:1,
+        opacity:0.7,
         scrollTrigger:{
           trigger: '.container',
           markers: true,
@@ -39,7 +42,7 @@ export default function BuyCredit() {
             <div key={i} ref={el=>cardRef.current[i] = el}
             className='card flex flex-col items-center  bg-white shadow-xl
             border-[#ededed] border-2 h-[60vh] w-[90vw] sm:w-[50vw] lg:w-[25vw]
-             rounded-xl text-center'>
+             rounded-xl  text-center'>
               
               <h1 className='pt-[10vh] text-3xl font-semibold txt-shadow'>{elem.id}</h1>
               <p className='text-xl sm:text-sm text-[#515151] py-3 txt-shadow'>{elem.desc}</p>
@@ -50,8 +53,8 @@ export default function BuyCredit() {
               <button className='bg-black text-white rounded-lg 
               md:px-12 py-3 px-6 text-lg md:text-[1vw] mt-10 
               active:scale-105 transition-all duration-300 
-              ease-in-out cursot-pointer shadow-[2px_2px_10px_3px_rgba(0,0,0,0.5)]'>
-              Get Started</button>
+              ease-in-out cursor-pointer shadow-[2px_2px_10px_3px_rgba(0,0,0,0.5)]'>
+              {user?'Purchase': 'Get Started'}</button>
             </div>
             )
           }
