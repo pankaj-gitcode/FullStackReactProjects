@@ -7,29 +7,43 @@ export default function Login() {
     const [sign, setSign] = useRecoilState(loginAtom);
 
   return (
-    <div className='absolute left-0 top-0 bottom-[86%] right-0 
-    backdrop-blur-sm bg-black/30 flex items-center justify-center z-10'>
-
-    <form className='relative flex items-center justify-start' >
-        <div>
-            <h1>{sign}</h1>
-            <p>Welcome! Please {sign} to continue</p>
-
-            <div className=''>
-                <img src={assets.profile_icon} alt="profile_icon" />
-                <input type="text" placeholder='Full name' required/>                
-            </div>
-            <div>
-                <img src={assets.email_icon} alt="email_icon" />
-                <input type="email" placeholder='Email id' required/>
-            </div>
-            <div>
-                <img src={assets.lock_icon} alt="lock_icon" />
-                <input type="password" placeholder='Password' required/>
-            </div>
+    <>
+        <div className='flex items-start justify-center absolute top-0 left-0 right-0 bottom-0
+        z-10 backdrop-blur-sm bg-black/30'>
+            <form className='relative mt-20 bg-white p-10 rounded-xl '>
+                <div>
+                    <h1>{sign}</h1>
+                    <p>Welcome back! Please {sign} to continue </p>
+                </div>
+                    {/* ------- USER NAME ------- */}
+                <div className='flex items-center '>
+                    <img src={assets.user_icon} alt="user_icon" className='w-3'/>
+                    <input type="text" placeholder='Full name' required />
+                </div>
+                    {/* --------- EMAIL ---------- */}
+                <div className='flex items-center '>
+                    <img src={assets.email_icon} alt="email_icon" />
+                    <input type="email" placeholder='Email' required />
+                </div>
+                    {/* ------------ PASS ----------- */}
+                <div className='flex items-center '>
+                    <img src={assets.lock_icon} alt="lock_icon" />
+                    <input type="password" placeholder='Password' required/>
+                </div>
+                    {/* --------- PASS RESET -------- */}
+                <div>
+                    <p>Forgot password?</p>
+                </div>
+                    {/* ---------- SIGN/UP BTN -------- */}
+                <div>
+                    <button>{sign}</button>
+                </div>
+                    {/* ----------- SIGN/UP FLIP --------- */}
+                <div>
+                    <p>Already have an account?<span>{sign} here</span></p>
+                </div>
+            </form>
         </div>
-    </form>
-
-    </div>
+    </>
   )
 }
