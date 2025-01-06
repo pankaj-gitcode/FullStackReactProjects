@@ -8,5 +8,5 @@ export const  userAtom = atom({
 
 export const loginAtom = atom({
     key: 'loginAtom',
-    default: 'SignUp'
+    default: 'Login'
 })
