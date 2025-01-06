@@ -10,3 +10,8 @@ export const loginAtom = atom({
     key: 'loginAtom',
     default: 'Login'
 })
+
+export const exitAtom = atom({
+    key: 'exitAtom',
+    default: 0
+})

@@ -1,21 +1,21 @@
 import React, { useState } from 'react'
 import { useRecoilState } from 'recoil'
-import { loginAtom } from '../atom/Atom'
+import { exitAtom, loginAtom } from '../atom/Atom'
 import { assets } from '../assets/assets';
 
 export default function Login() {
     const [sign, setSign] = useRecoilState(loginAtom);
+    const [exit, setExit] = useRecoilState(exitAtom);
 
   return (
     <>
-        <div className='flex items-start justify-center absolute top-0 left-0 right-0 bottom-0
-        z-10 backdrop-blur-sm bg-black/30'>
-            <form className='relative mt-20 bg-white p-10 rounded-xl shadow-[2px_2px_15px_2px_rgba(0,0,0,0.5)] bg-transparent'>
+        <div className={`${exit? 'flex items-start justify-center absolute top-0 left-0 right-0 bottom-0 z-10 backdrop-blur-sm bg-black/30 ':'' }`}>
+            <form className={`${exit? 'relative mt-20 bg-white p-10 rounded-xl shadow-[2px_2px_15px_2px_rgba(0,0,0,0.5)] bg-transparent':'hidden'}`}>
 
                         {/* ------- TITLE ------- */}
                 <div className='flex flex-col items-center justify-center gap-3'>
                     <h1 className='text-3xl lg:text-4xl text-gray-800'>{sign}</h1>
-                    <p className='text-[3.9vw] text-[#575B86] sm:text-lg pb-5'>Welcome! Please {sign} to continue </p>
+                    <p className='text-[3.9vw] text-[#b4b6d3] sm:text-lg pb-5'>Welcome! Please {sign} to continue </p>
                 </div>
                     
                     {/* ------- USER NAME ------- */}
@@ -57,6 +57,10 @@ export default function Login() {
 
                 }
                 </div>
+                 {/* ------------ EXIT --------- */}
+                 <div className='absolute top-5 right-5'>
+                    <img src={assets.cross_icon} alt="exit" onClick={()=>setExit(false)} className='cursor-pointer'/>
+                 </div>
             </form>
         </div>
     </>

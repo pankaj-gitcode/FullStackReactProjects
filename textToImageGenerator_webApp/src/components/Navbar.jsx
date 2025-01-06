@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { assets } from '../assets/assets'
 import {useNavigate} from 'react-router-dom'
 import {useRecoilState } from 'recoil';
-import { userAtom } from '../atom/Atom';
+import { exitAtom, userAtom } from '../atom/Atom';
 
 
 export default function Navbar() {
@@ -10,6 +10,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   // const navToBuy = useNavigate();
   const [user, setUser] = useRecoilState(userAtom);
+  const [exit, setExit] = useRecoilState(exitAtom);
   
   const [credit, setCredit] = useState(4);
   const [name, setName] = useState('Raj');
@@ -55,9 +56,10 @@ export default function Navbar() {
             <div className='flex items-center gap-10 text-[#545454] font-[400]'>
 
                 {/* ------- PRICING ------- */}
-                <p className='cursor-pointer' onClick={()=>navgate('/buy')}>Pricing</p>
+                <p className='cursor-pointer' onClick={()=>navigate('/buy')}>Pricing</p>
                     {/* -------- LOGIN -------- */}
-                <button className='bg-zinc-800 px-7 sm:px-10 py-2 text-white rounded-full text-small'>Login</button>
+                <button onClick={()=>setExit(true)}
+                className='bg-zinc-800 px-7 sm:px-10 py-2 text-white rounded-full text-small'>Login</button>
             </div> 
           }
       </nav>
