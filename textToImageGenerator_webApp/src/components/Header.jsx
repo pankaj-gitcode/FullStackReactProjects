@@ -15,7 +15,7 @@ export default function Header() {
     const imgContainerRef = useRef();
     const imgWrapperRef = useRef();
 
-    // ------------ CLICK TO NAVIGATE /result or LOGIN ----------
+    // ------------ CLICK TO NAVIGATE /result or LOGIN Page----------
     const onClickHandler = ()=> {
         user? navigate('/result'):setExit(true)
     }
