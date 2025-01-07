@@ -2,10 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { exitAtom, loginAtom } from '../atom/Atom'
 import { assets } from '../assets/assets';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap/all';
 
 export default function Login() {
     const [sign, setSign] = useRecoilState(loginAtom);
     const [exit, setExit] = useRecoilState(exitAtom);
+
+    
+        gsap.fromTo('#login', {
+            y:30, opacity:0.2
+        }, {y:0, opacity:1, duration:1, yoyoEase:true})
+
 
     // stop from scrolling
     useEffect(()=>{
@@ -15,8 +23,8 @@ export default function Login() {
 
   return (
     <>
-        <div id='login' className={`${exit? ' flex items-start justify-center fixed top-0 left-0 right-0 bottom-0 z-10 backdrop-blur-sm bg-black/30 ':'' }`}>
-            <form className={`${exit? 'relative mt-20 bg-white p-10 rounded-xl shadow-[2px_2px_15px_2px_rgba(0,0,0,0.5)] bg-transparent':'hidden'}`}>
+        <div  className={`${exit? ' flex items-start justify-center fixed top-0 left-0 right-0 bottom-0 z-10 backdrop-blur-sm bg-black/30 ':'' }`}>
+            <form id='login' className={`${exit? 'relative mt-20 bg-white p-10 rounded-xl shadow-[2px_2px_15px_2px_rgba(0,0,0,0.5)] bg-transparent':'hidden'}`}>
 
                         {/* ------- TITLE ------- */}
                 <div className='flex flex-col items-center justify-center gap-3'>
