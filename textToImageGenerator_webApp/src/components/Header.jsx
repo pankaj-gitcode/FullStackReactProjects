@@ -2,12 +2,24 @@ import React, { useRef } from 'react'
 import { assets } from '../assets/assets'
 import {useGSAP} from '@gsap/react'
 import gsap, { ScrollTrigger } from 'gsap/all';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { exitAtom, loginAtom, userAtom } from '../atom/Atom';
+import { useNavigate } from 'react-router-dom';
 
 export default function Header() {
+    const user = useRecoilValue(userAtom);
+    const [exit,setExit] = useRecoilState(exitAtom);
+    const navigate = useNavigate();
     const topTxtRef = useRef();
     const txtRef = useRef();
     const imgContainerRef = useRef();
     const imgWrapperRef = useRef();
+
+    // ------------ CLICK TO NAVIGATE /result or LOGIN ----------
+    const onClickHandler = ()=> {
+        user? navigate('/result'):setExit(true)
+    }
+
 
         // ------------------ ANIMATING TEXTS ---------------
     useGSAP(()=>{
@@ -89,8 +101,10 @@ export default function Header() {
             </div>
                 {/* ------- GENERATE BUTTON ------- */}
             <div className='py-6'>
-                <button className='bg-black text-white flex items-center justify-center 
-                        px-5 sm:px-10 py-3 rounded-full text-sm gap-2 cursor-pointer active:scale-105 duration-300'>Generate Images 
+                <button onClick={onClickHandler}
+                className='bg-black text-white flex items-center justify-center 
+                        px-5 sm:px-10 py-3 rounded-full text-sm gap-2 cursor-pointer active:scale-105 duration-300'>
+                        Generate Images 
                     
                     <img src={assets.star_group} alt={assets.star_group} className='w-8' />
                 </button>

@@ -3,7 +3,7 @@ import { atom } from "recoil";
 
 export const  userAtom = atom({
     key: 'userAtom',
-    default:null
+    default:0
 })
 
 export const loginAtom = atom({
