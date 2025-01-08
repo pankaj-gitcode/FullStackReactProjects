@@ -9,6 +9,7 @@ const BuyCredit = lazy(()=>import('./pages/BuyCredit'));
 const Navbar = lazy(()=>import('./components/Navbar'));
 const Footer = lazy(()=>import('./components/Footer'));
 const Login = lazy(()=>import('./components/Login'));
+const DelBox = lazy(()=>import('./components/DelBox'))
 
 
 export default function App(){
@@ -24,6 +25,7 @@ export default function App(){
             <Route path='/' element={<Home />}/>
             <Route path='/result' element={<Result/>}/>
             <Route path='/buy' element={<BuyCredit/>}/>
+            <Route path='/delbox' element={<DelBox/>}/>
             
           </Routes>
       <Footer />
