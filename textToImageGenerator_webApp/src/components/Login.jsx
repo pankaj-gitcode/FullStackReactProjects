@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useRecoilState } from 'recoil'
 import { exitAtom, loginAtom } from '../atom/Atom'
 import { assets } from '../assets/assets';
-import { useGSAP } from '@gsap/react';
+// import { useGSAP } from '@gsap/react';
 import gsap from 'gsap/all';
 
 export default function Login() {
@@ -17,8 +17,9 @@ export default function Login() {
 
     // stop from scrolling
     useEffect(()=>{
-       
-        exit? document.body.style.overflow='hidden': document.body.style.overflow='unset'
+        exit? document.body.style.overflow='hidden'
+        : 
+        document.body.style.overflow='unset'
     })
 
   return (

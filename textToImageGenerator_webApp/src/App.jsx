@@ -9,7 +9,7 @@ const BuyCredit = lazy(()=>import('./pages/BuyCredit'));
 const Navbar = lazy(()=>import('./components/Navbar'));
 const Footer = lazy(()=>import('./components/Footer'));
 const Login = lazy(()=>import('./components/Login'));
-const DelBox = lazy(()=>import('./components/DelBox'))
+const BorderMovingAnim = lazy(()=>import('./components/BorderMovingAnim'));
 
 
 export default function App(){
@@ -21,11 +21,12 @@ export default function App(){
       <Suspense fallback={<p>Loading...</p>}>
         <Navbar/>
         <Login/>
+        
           <Routes>
             <Route path='/' element={<Home />}/>
             <Route path='/result' element={<Result/>}/>
             <Route path='/buy' element={<BuyCredit/>}/>
-            <Route path='/delbox' element={<DelBox/>}/>
+            <Route path='/border' element={<BorderMovingAnim/>}/>
             
           </Routes>
       <Footer />
