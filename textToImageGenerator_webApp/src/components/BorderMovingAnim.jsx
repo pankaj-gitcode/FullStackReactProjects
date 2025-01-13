@@ -9,11 +9,13 @@ export default function BorderMovingAnim() {
     const divRef = useRef();
 
     useGSAP(()=>{
-        gsap.to(divRef, {
-            "--angle": 360,
+        gsap.to(divRef.current, {
+            '--angle': `${72000}deg`,
+            
             repeat: -1,
             ease: 'linear',
             yoyoEase: true,
+            duration:500
         })
     })
   return (

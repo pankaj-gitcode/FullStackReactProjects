@@ -46,15 +46,16 @@
  }
  
  
- @property --angle{
+ /* @property --angle{
    syntax: '<angle>'; 
    inherits: false;
    initial-value: 0deg;
- }
+ } */
 @layer utilities{
 
 
   .wrapper{
+    --angle: 0deg;
     @apply h-[30vh] w-[30vw] relative rounded-xl 
   }
   .wrapper::after{
@@ -73,7 +74,7 @@
   }
 }
 
-@keyframes spin{
+/* @keyframes spin{
   from{--angle: 0deg;}
   to{--angle: 360deg;}
-  }
+  } */
