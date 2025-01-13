@@ -1,17 +1,29 @@
 // TODO: to create border moving around the button continuously
 
-import React from 'react'
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap/all';
+import React, { useRef } from 'react'
+// import '../App.css'
 
 export default function BorderMovingAnim() {
+    const divRef = useRef();
+
+    useGSAP(()=>{
+        gsap.to(divRef, {
+            "--angle": 360,
+            repeat: -1,
+            ease: 'linear',
+            yoyoEase: true,
+        })
+    })
   return (
-    <div className='h-screen flex items-center justify-center '>
-        <div
-         className='btn  w-[30vw] bg-slate-600 text-center text-slate-300 
-         h-[30vh] py-10 px-12
-         rounded-xl '
-        >
-            Lorem, ipsum dolor sit amet consectetur adipisicing.
+    <div className="container h-screen flex items-center justify-center ">
+        <div ref={divRef} className="wrapper bg-slate-950 text-slate-300 ">
+            <div className="content flex items-center justify-center">
+                Lorem ipsum dolor sit, amet consectetur adipisicing.
+            </div>
         </div>
     </div>
+
   )
 }
