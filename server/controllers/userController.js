@@ -35,7 +35,7 @@ const registerUser = async(req,res)=>{
    const token = jwt.sign({id:user._id}, process.env.JWT_PASS);
    res.status(200).json({
     success:true,
-    message: 'Token generated...',
+    user: user.name,
     TOKEN: token
    })
     }
@@ -48,7 +48,9 @@ const registerUser = async(req,res)=>{
 
 // ------------------ LOGIN -----------
 const loginUser = async(req,res)=>{
-    const {email,password} = req.body;
+    try{
+
+        const {email,password} = req.body;
 
     // check the validity of email
     if(!validator.isEmail(email)){res.status(400).json({success:false, message: 'Invlaid Login Email'})};
@@ -74,5 +76,14 @@ const loginUser = async(req,res)=>{
         user: user.name
     })
 
-
+    }
+    catch(err){
+        res.status(500).json({
+            success:false,
+            message: `Controller ERROR: ${err.message}`
+        })
+    }
 }
+
+//export both functions
+export {registerUser, loginUser} 
