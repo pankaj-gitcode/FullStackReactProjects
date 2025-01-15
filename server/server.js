@@ -17,10 +17,10 @@ app.get('/', (req, res)=>{
     })
 })
 
+//call the DB connection function
+dbConnect();
 // ------------ API ENDPOINTS -------------
 // user Router
 app.use('/api/user', userRouter);
 
 app.listen(PORT, ()=>{console.log("SERVER LISTENING ON PORT: ", PORT)});
-
-dbConnect();

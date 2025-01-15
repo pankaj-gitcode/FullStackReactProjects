@@ -1,4 +1,4 @@
-import userModel from "../models/userModel";
+import userModel from "../models/userModel.js";
 import bcrypt from 'bcrypt'
 import jwt  from "jsonwebtoken";
 import validator from 'validator'
@@ -13,12 +13,13 @@ const registerUser = async(req,res)=>{
 
     //check if name||pass||email is missing
     if(!name || !password || !email){
-        res.status(400).json({success:false, message: 'Missing Details'})
+       return res.status(400).json({success:false, message: 'Missing Details'})
     }
 
     // validate the Email using validator
     if(!validator.isEmail(email)){
-        res.status(400).json({success:false, message: 'Invalid Email!'});
+        return res.status(400).json({success:false, message: 'Invalid Email!'});
+        
     }
 
     //create salt using bcrypt
@@ -27,7 +28,7 @@ const registerUser = async(req,res)=>{
 
     //create user database
    const userData = {
-    name,email,password: {hashedPassword}
+    name,email,password: hashedPassword
    }
    const user = await userModel.create(userData);
 
@@ -57,12 +58,13 @@ const loginUser = async(req,res)=>{
 
     // check then email & password already in DB
     const user = await userModel.findOne({email})
-    if(!user){res.status(400).json('Invalid user/entry')}
+    if(!user)
+        {return res.status(400).json('Invalid user/entry')}
 
     // check the password hash matched
     const isMatched = await bcrypt.compare(password, user.password)
     if(!isMatched){
-        res.status(404).json({
+        return res.status(404).json({
             success: false,
             message: 'Incorrect Password!...'
         })
