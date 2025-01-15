@@ -92,10 +92,11 @@ const userCredit = async(req,res)=>{
    try{
      // from middleware userAuth grab userId
      const {userId} = req.body;
-
+     
      // verify this userId with actual DB
-     const user = await userModel.findOne({userId});
-     if(!user){return res.status(404).json({success:true, message:'Invalid UserID'})}
+     const user = await userModel.findById(userId);
+     console.log("USER: "+ [userId,user])
+     if(!user){return res.status(404).json({success:false, message:'Invalid UserID'})}
  
      res.status(200).json({success:true, userCredit: user.creditBalance, name: user.name});
    }

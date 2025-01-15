@@ -1,4 +1,4 @@
-import jwt from 'jasonwebtoken'
+import jwt from 'jsonwebtoken'
 
 const userAuth = async(req, res, next)=>{
     
@@ -11,11 +11,9 @@ const userAuth = async(req, res, next)=>{
     //if valid token then decode it
     const tokenDecode = jwt.verify(token, process.env.JWT_PASS);
     
-    // if valid then extract ID and attach ID to req.body to be used further functions
-    tokenDecode.id?
-    req.body.userId = tokenDecode
-    :
-    res.status(404).json({success:false, message: 'Unauthorised Login!...'});
+   
+    if(tokenDecode.id){ req.body.userId = tokenDecode.id }
+    else{return res.status(404).json({success:false, message: 'Invalid user token!'})}
 
     next();
     }
