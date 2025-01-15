@@ -2,7 +2,8 @@ import jwt from 'jasonwebtoken'
 
 const userAuth = async(req, res, next)=>{
     
-    const {token} = req.headers;
+    try{
+        const {token} = req.headers;
 
     // check if headers is non-empty
     if(!token){return res.status(400).json({success:false, message:'Invalid Entry...'})}
@@ -14,8 +15,16 @@ const userAuth = async(req, res, next)=>{
     tokenDecode.id?
     req.body.userId = tokenDecode
     :
-    res.status(404).json({success:false, message: 'Unauthorised Login!...'})
+    res.status(404).json({success:false, message: 'Unauthorised Login!...'});
 
     next();
-
+    }
+    catch(err){
+        res.status(404).json({
+            success: false,
+            message: `Error! ${err.message}`
+        })
+    }
 }
+
+export default userAuth;
