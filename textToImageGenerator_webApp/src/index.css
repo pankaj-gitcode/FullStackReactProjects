@@ -12,7 +12,6 @@
   font-family: outfit;
   
 }
-/* :root{--angle: 0deg;} */
 
 /* ------ adding fonts -------- */
 @font-face{
@@ -46,6 +45,8 @@
  }
  
  
+
+ /* ----------- BORDER ANIMATION --------------- */
  /* @property --angle{
    syntax: '<angle>'; 
    inherits: false;
@@ -67,7 +68,6 @@
     animation: spin 1s linear infinite;
 
   }
-
 
   .content{
     @apply w-[100%] h-[100%] absolute z-10 bg-orange-500
