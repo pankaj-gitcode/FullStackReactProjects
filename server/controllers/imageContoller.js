@@ -1,8 +1,11 @@
 import axios from "axios";
 import userModel from "../models/userModel";
 import FormData from 'form-data'
+import {Buffer} from 'buffer'
 
 export const imageController= async(req,res)=>{
+    try{
+
     const {userId, prompt} = req.body;
 
     // find userId in DB
@@ -18,13 +21,33 @@ export const imageController= async(req,res)=>{
         return res.json(404).json({success: false, message:'No Credit...'})
     }
 
-    // decalre formData
+    // declare formData
     const formData = new FormData();
     formData.append('prompt', prompt);
-    await axios.post('https://clipdrop-api.co/text-to-image/v1',
+    const {data} = await axios.post('https://clipdrop-api.co/text-to-image/v1',
         formData,
         {
-            headers: {'x-api-key': process.env.CLIPDROP_API}
+            headers: {'x-api-key': process.env.CLIPDROP_API},
+            responseType: 'arraybuffer'
         }
     )
+    // convert arrayBuffer from binary to base64
+    const base64Image = Buffer.from(data , 'binary').toString('base64');
+    const resultImage = `data:image/png:base64, ${base64Image}`
+
+    // user used image, decrement in creditBalance, update the same in DB
+    await userModel.findByIdAndUpdate(user._id, {creditBalance:user.creditBalance-1});
+
+    // display the data
+    res.status(200).json({
+        success: true,
+        message: 'Image Generated',
+        creditBalance: user.creditBalance-1,
+        resultImage
+    })
+}
+catch(err){
+    res.status(503).json({success:true, message: `ERROR: ${err.message}`})
+}
+
 }
