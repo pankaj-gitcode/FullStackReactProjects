@@ -3,6 +3,7 @@ import express from 'express'
 import cors from 'cors'
 import dbConnect from './config/db.js';
 import userRouter from './router/userRouter.js';
+import imageRouter from './router/imageRouter.js';
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -22,6 +23,7 @@ dbConnect();
 // ------------ API ENDPOINTS -------------
 // user Router
 app.use('/api/user', userRouter);
+app.use('/api/image/', imageRouter);
 
 
 app.listen(PORT, ()=>{console.log("SERVER LISTENING ON PORT: ", PORT)});
