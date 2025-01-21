@@ -33,7 +33,7 @@ export const imageController= async(req,res)=>{
     )
     // convert arrayBuffer from binary to base64
     const base64Image = Buffer.from(data , 'binary').toString('base64');
-    const resultImage = `data:image/png:base64, ${base64Image}`
+    const resultImage = `data:image/png;base64, ${base64Image}`
 
     // user used image, decrement in creditBalance, update the same in DB
     await userModel.findByIdAndUpdate(user._id, {creditBalance:user.creditBalance-1});
