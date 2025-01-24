@@ -5,6 +5,10 @@ export const  userAtom = atom({
     key: 'userAtom',
     default:0
 })
+export const creditAtom = atom({
+    key: 'creditAtom',
+    default: 0
+})
 
 export const loginAtom = atom({
     key: 'loginAtom',

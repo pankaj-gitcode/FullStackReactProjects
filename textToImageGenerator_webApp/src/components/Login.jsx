@@ -8,6 +8,10 @@ import gsap from 'gsap/all';
 export default function Login() {
     const [sign, setSign] = useRecoilState(loginAtom);
     const [exit, setExit] = useRecoilState(exitAtom);
+    // update name,email & password
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     
         gsap.fromTo('#login', {
@@ -38,19 +42,25 @@ export default function Login() {
                 sign === 'SignUp' && 
                 <div className='flex items-center gap-2 border-2 rounded-full px-3 mb-3 text-gray-500 text-lg'>
                     <img src={assets.user_icon} alt="user_icon" className='w-3'/>
-                    <input type="text" placeholder='Full Name' className='outline-none pr-1 sm:pr-10 py-3' required />
+                    <input type="text" placeholder='Full Name' 
+                    value={name} onChange={(e)=>setName(e.target.value)}
+                    className='outline-none pr-1 sm:pr-10 py-3' required />
                 </div>
                }
 
                     {/* --------- EMAIL ---------- */}
                 <div className='flex items-center gap-2 border-2 rounded-full px-3 text-gray-500 text-lg'>
                     <img src={assets.email_icon} alt="email_icon" />
-                    <input type="email" placeholder='Email' className='outline-none pr-10 py-3' required />
+                    <input type="email" placeholder='Email'
+                    value={email} onChange={e=>setEmail(e.target.value)} 
+                    className='outline-none pr-10 py-3' required />
                 </div>
                     {/* ------------ PASS ----------- */}
                 <div className='flex items-center gap-2 border-2 rounded-full px-3 my-3 text-gray-500 text-lg'>
                     <img src={assets.lock_icon} alt="lock_icon" />
-                    <input type="password" placeholder='Password' className='outline-none pr-10 py-3' required/>
+                    <input type="password" placeholder='Password'
+                    value={password} onChange={e=>setPassword(e.target.value)}
+                     className='outline-none pr-10 py-3' required/>
                 </div>
                     {/* --------- PASS RESET -------- */}
                 <div>

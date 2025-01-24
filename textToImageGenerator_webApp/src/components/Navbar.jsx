@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
 import { assets } from '../assets/assets'
 import {useNavigate} from 'react-router-dom'
-import {useRecoilState } from 'recoil';
-import { exitAtom, userAtom } from '../atom/Atom';
+import {useRecoilState, useRecoilValue } from 'recoil';
+import { creditAtom, exitAtom, userAtom } from '../atom/Atom';
 
 
 export default function Navbar() {
   // const logoToHomeNav = useNavigate();
   const navigate = useNavigate();
   // const navToBuy = useNavigate();
-  const [user, setUser] = useRecoilState(userAtom);
+  const user = useRecoilValue(userAtom);
   const [exit, setExit] = useRecoilState(exitAtom);
   
-  const [credit, setCredit] = useState(4);
+  const credit = useRecoilValue(creditAtom);
   const [name, setName] = useState('Raj');
 
 
