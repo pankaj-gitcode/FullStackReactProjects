@@ -29,6 +29,7 @@ export default function Login() {
   return (
     <>
         <div  className={`${exit? ' flex items-start justify-center fixed top-0 left-0 right-0 bottom-0 z-10 backdrop-blur-sm bg-black/30 ':'' }`}>
+        {/* ---------------- FORM ------------------ */}
             <form id='login' className={`${exit? 'relative mt-20 bg-white p-10 rounded-xl shadow-[2px_2px_15px_2px_rgba(0,0,0,0.5)] bg-transparent':'hidden'}`}>
 
                         {/* ------- TITLE ------- */}
@@ -66,7 +67,7 @@ export default function Login() {
                 <div>
                     {sign==='Login' && <p className='text-[#007AFF] text-lg lg:text-xl cursor-pointer'>Forgot password?</p>}
                 </div>
-                    {/* ---------- SIGN/UP BTN -------- */}
+                    {/* ---------- SIGN-In/UP BTN -------- */}
                 <div className='bg-[#007AFF] rounded-full text-center py-3 
                 text-lg active:scale-105 cursor-pointer duration-300 
                 transition ease-in-out my-3'>
