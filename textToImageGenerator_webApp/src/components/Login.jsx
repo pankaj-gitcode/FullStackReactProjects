@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useRecoilState } from 'recoil'
-import { exitAtom, loginAtom } from '../atom/Atom'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { backendUrlAtom, exitAtom, loginAtom, tokenAtom } from '../atom/Atom'
 import { assets } from '../assets/assets';
+import axios from 'axios'
 // import { useGSAP } from '@gsap/react';
 import gsap from 'gsap/all';
 
@@ -12,6 +13,10 @@ export default function Login() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const [token, setToken] = useRecoilState(tokenAtom);
+    const backendUrl = useRecoilValue(backendUrlAtom);
+
 
     
         gsap.fromTo('#login', {
@@ -25,12 +30,39 @@ export default function Login() {
         : 
         document.body.style.overflow='unset'
     })
+    // handle signin and sinup :form
+    const submitHandler = async()=>{
+        // ---------- sigin -----------
+        if(sign === 'Login'){
+            const {data} = await axios.post(backendUrl + '/api/user/signin', {email,password} );
+            // if success then grab 'token,userName'
+            if(success){
+                setToken(data.token);
+                setName(data.name);
+                localStorage.setName('token', token);
+                setExit(0); // once LogedIn close the Login Form
+            }
+            else{
+                //
+            }
+        
+        }
+        else{
+            const {data} = await axios.post(`${backendUrl}/api/user/signup`, {name,email,password});
+
+        }
+
+        }
+
+        // ---------- signup ----------
+    }
 
   return (
     <>
         <div  className={`${exit? ' flex items-start justify-center fixed top-0 left-0 right-0 bottom-0 z-10 backdrop-blur-sm bg-black/30 ':'' }`}>
         {/* ---------------- FORM ------------------ */}
-            <form id='login' className={`${exit? 'relative mt-20 bg-white p-10 rounded-xl shadow-[2px_2px_15px_2px_rgba(0,0,0,0.5)] bg-transparent':'hidden'}`}>
+            <form id='login' onSubmit={submitHandler}
+             className={`${exit? 'relative mt-20 bg-white p-10 rounded-xl shadow-[2px_2px_15px_2px_rgba(0,0,0,0.5)] bg-transparent':'hidden'}`}>
 
                         {/* ------- TITLE ------- */}
                 <div className='flex flex-col items-center justify-center gap-3'>
@@ -73,7 +105,8 @@ export default function Login() {
                 transition ease-in-out my-3'>
                     <button className='text-[#fff]'>{sign}</button>
                 </div>
-                    {/* ----------- SIGN/UP FLIP --------- */}
+
+                    {/* ----------- SIGN/UP FLIP PARA --------- */}
                 <div className='text-slate-500 text-xl sm:text-lg'>
                 {
                     sign === 'Login'?
