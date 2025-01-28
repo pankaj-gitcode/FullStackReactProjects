@@ -31,41 +31,9 @@ export default function Login() {
         document.body.style.overflow='unset'
     })
     // handle signin and sinup :form
-    const submitHandler = async()=>{
-        
-        // ---------- sigin -----------
-        if(sign === 'Login'){
-            const {data} = await axios.post(backendUrl + '/api/user/signin', {email,password} );
-            // if success then grab 'token,userName'
-            if(success){
-                setToken(data.token);
-                setName(data.name);
-                localStorage.setName('token', token);
-                setExit(0); // once LoggedIn close the Login Form
-            }
-            else{
-                //
-            }
-        
-        }
-                // When user needs to 'Register/signUp'
-        else{
-            const {data} = await axios.post(`${backendUrl}/api/user/signup`, {name,email,password});
-            if(success){
-                setToken(data.token);
-                setName(data.name);
-                localStorage.setItem('token', token);
-                setExit(0);
-            }
-            else{
-                //Toast master error
-            }
-
-        }
-
-        }
-
-        // ---------- signup ----------
+    const submitHandler = async ()=>{
+        // ------------ LOGIN -------------
+        // ------------ SIGNUP -------------
     }
 
   return (
