@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom';
 import { assets } from './assets/assets';
+import { ToastContainer} from 'react-toastify';
 
 
 const Home = lazy(()=>import('./pages/Home'));
@@ -21,7 +22,7 @@ export default function App(){
       <Suspense fallback={<p>Loading...</p>}>
         <Navbar/>
         <Login/>
-        
+        <ToastContainer position="bottom-right"/>
           <Routes>
             <Route path='/' element={<Home />}/>
             <Route path='/result' element={<Result/>}/>

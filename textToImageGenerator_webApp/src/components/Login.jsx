@@ -5,6 +5,8 @@ import { assets } from '../assets/assets';
 import axios from 'axios'
 // import { useGSAP } from '@gsap/react';
 import gsap from 'gsap/all';
+import { toast } from 'react-toastify';
+import { useGSAP } from '@gsap/react';
 
 export default function Login() {
     const [sign, setSign] = useRecoilState(loginAtom);
@@ -18,10 +20,12 @@ export default function Login() {
     const backendUrl = useRecoilValue(backendUrlAtom);
 
 
-    
+    useGSAP(()=>{
         gsap.fromTo('#login', {
-            y:30, opacity:0.2
-        }, {y:0, opacity:1, duration:1, yoyoEase:true})
+            y:50, opacity:0.2
+        }, {y:0, opacity:1, duration:3, yoyoEase:true})
+
+    })
 
 
     // stop from scrolling
@@ -33,6 +37,19 @@ export default function Login() {
     // handle signin and sinup :form
     const submitHandler = async ()=>{
         // ------------ LOGIN -------------
+        if(sign === 'login'){
+            // fetch /api/user/login API
+           const {data} =  await axios.post(backendUrl+'/api/user/login', {email,password});
+           if(data.success){
+            setToken(data.token);
+            setName(name);
+            localStorage.setItem(token);
+            setExit(0);
+           }
+           else{
+            toast.error('SOME ERROR...')
+           }
+        }
         // ------------ SIGNUP -------------
     }
 

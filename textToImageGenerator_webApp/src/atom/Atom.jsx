@@ -9,12 +9,12 @@ export const creditAtom = atom({
     key: 'creditAtom',
     default: 0
 })
-
+    // -------- LOGIN --------
 export const loginAtom = atom({
     key: 'loginAtom',
     default: 'Login'
 })
-
+    // --------- CLOSE SIGN-IN/UP card --------
 export const exitAtom = atom({
     key: 'exitAtom',
     default: 0
