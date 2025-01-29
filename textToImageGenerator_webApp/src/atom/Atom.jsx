@@ -20,7 +20,7 @@ export const exitAtom = atom({
     default: 0
 })
 
-//  ------ BACKEND TO FRONTEBD ---------
+//  ------ BACKEND TO FRONTEND ---------
 export const backendUrlAtom = atom({
     key: 'backendUrlAtom',
     default: import.meta.env.VITE_BACKEND_URL

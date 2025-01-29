@@ -18,6 +18,7 @@ export default function Login() {
 
     const [token, setToken] = useRecoilState(tokenAtom);
     const backendUrl = useRecoilValue(backendUrlAtom);
+    console.log("BKNDURL=> ", backendUrl)
 
     // SignIn/Up form animation
     useGSAP(()=>{
@@ -27,40 +28,47 @@ export default function Login() {
 
     })
 
-
-    // stop from scrolling
-    useEffect(()=>{
-        exit? document.body.style.overflow='hidden'
-        : 
-        document.body.style.overflow='unset'
-    })
     // handle signin and sinup :form
-    const submitHandler = async ()=>{
+    const submitHandler = async (e)=>{
+        e.preventDefault();
+        try{
         // ------------ LOGIN -------------
-        if(sign === 'login'){
+        if(sign === 'Login'){
             // fetch /api/user/login API
-           const {data} =  await axios.post(backendUrl+'/api/user/login', {email,password});
+           const {data} =  await axios.post(backendUrl+'/api/user/signin', {email,password});
            if(data.success){
             setToken(data.token);
-            setName(name);
-            localStorage.setItem(token);
+            setName(data.name);
+            localStorage.setItem('token',data.token);
             setExit(0);
            }
            else{
-            toast.error('SOME ERROR...')
+            toast.error(data.message)
            }
         }
         // ------------ SIGNUP -------------
         else{
-            const {data} = await axios.post(backendUrl+'/api/user/register', {name, email, password});
+            const {data} = await axios.post(backendUrl+'/api/user/signup', {name, email, password});
             if(data.success){
-                setToken(token);
-                setName(name);
-                localStorage.setItem('token',token);
+                setToken(data.token);
+                setName(data.name);
+                localStorage.setItem('token',data.token);
                 setExit(0);
             }
+            else{toast.error(data.message)}
+        }
+        }
+        catch(err){
+            toast.error(err.message)
         }
     }
+
+     // stop from scrolling
+     useEffect(()=>{
+        exit? document.body.style.overflow='hidden'
+        : 
+        document.body.style.overflow='unset'
+    })
 
   return (
     <>
