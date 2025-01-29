@@ -5,6 +5,8 @@ export const  userAtom = atom({
     key: 'userAtom',
     default:0
 })
+
+// ------- CREDIT -------
 export const creditAtom = atom({
     key: 'creditAtom',
     default: 0

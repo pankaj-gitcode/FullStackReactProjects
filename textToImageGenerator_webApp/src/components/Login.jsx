@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { backendUrlAtom, exitAtom, loginAtom, tokenAtom } from '../atom/Atom'
+import { backendUrlAtom, exitAtom, loginAtom, tokenAtom, userAtom } from '../atom/Atom'
 import { assets } from '../assets/assets';
 import axios from 'axios'
 // import { useGSAP } from '@gsap/react';
@@ -11,6 +11,7 @@ import { useGSAP } from '@gsap/react';
 export default function Login() {
     const [sign, setSign] = useRecoilState(loginAtom);
     const [exit, setExit] = useRecoilState(exitAtom);
+    const [user, setUser] = useRecoilState(userAtom);
     // update name,email & password
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -38,6 +39,7 @@ export default function Login() {
            const {data} =  await axios.post(backendUrl+'/api/user/signin', {email,password});
            if(data.success){
             setToken(data.token);
+            setUser(1);
             setName(data.name);
             localStorage.setItem('token',data.token);
             setExit(0);

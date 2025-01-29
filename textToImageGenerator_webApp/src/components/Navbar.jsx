@@ -29,7 +29,7 @@ export default function Navbar() {
           />
           {
             user? 
-              // ---------- USER LOGGED-IN --------
+              // ---------------------- USER LOGGED-IN ----------------------------
             <div className='flex items-center justify-center gap-8'>
                               {/* ------- CREDITS ------- */}
               <div onClick={()=>navigate('/buy')} className='bg-[#D7EBFF] flex items-center justify-center gap-2 px-4 sm:px-6 py-1.5 sm:py-3 rounded-full hover:scale-105 transition duration-[.5s] cursor-pointer '>
@@ -52,7 +52,7 @@ export default function Navbar() {
               </div>
             </div>  
             :
-              // --------- USER LOGGED-OUT --------
+              // ---------------------- USER LOGGED-OUT -------------------------------
             <div className='flex items-center gap-10 text-[#545454] font-[400]'>
 
                 {/* ------- PRICING ------- */}
