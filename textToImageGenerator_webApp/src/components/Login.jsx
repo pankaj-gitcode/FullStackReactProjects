@@ -19,7 +19,7 @@ export default function Login() {
     const [token, setToken] = useRecoilState(tokenAtom);
     const backendUrl = useRecoilValue(backendUrlAtom);
 
-
+    // SignIn/Up form animation
     useGSAP(()=>{
         gsap.fromTo('#login', {
             y:50, opacity:0.2
@@ -51,6 +51,15 @@ export default function Login() {
            }
         }
         // ------------ SIGNUP -------------
+        else{
+            const {data} = await axios.post(backendUrl+'/api/user/register', {name, email, password});
+            if(data.success){
+                setToken(token);
+                setName(name);
+                localStorage.setItem('token',token);
+                setExit(0);
+            }
+        }
     }
 
   return (
