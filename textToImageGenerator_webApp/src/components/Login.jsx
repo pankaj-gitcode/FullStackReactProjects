@@ -19,7 +19,7 @@ export default function Login() {
 
     const [token, setToken] = useRecoilState(tokenAtom);
     const backendUrl = useRecoilValue(backendUrlAtom);
-    console.log("BKNDURL=> ", backendUrl)
+    // console.log("BKNDURL=> ", backendUrl)
 
     // SignIn/Up form animation
     useGSAP(()=>{
