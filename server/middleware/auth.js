@@ -13,7 +13,7 @@ const userAuth = async(req, res, next)=>{
         
     
         if(tokenDecode && tokenDecode.id){ 
-            req.body.userId = tokenDecode.id;
+            req.body.userId = tokenDecode.id; //attach userId to body
             return next();
         }
         else{return res.status(404).json({success:false, message: 'Invalid user token!'})}
