@@ -1,6 +1,9 @@
-import { atom } from "recoil";
+import axios from "axios";
+import { useEffect } from "react";
+import { atom, atomFamily, constSelector, selector, useRecoilValue } from "recoil";
 
 
+// -------- LOGGED-IN USER ----------
 export const  userAtom = atom({
     key: 'userAtom',
     default:0
@@ -31,4 +34,24 @@ export const backendUrlAtom = atom({
 export const tokenAtom = atom({
     key: 'tokenAtom',
     default: localStorage.getItem('token')
+})
+
+// -------------------- FETCH CREDIT API -------------------------
+export const loadCreditAtom = atomFamily({
+    key:'loadCreditAtom',
+    get:({get})=>{
+        const backendURL= get(backendUrlAtom);
+        const token = get(tokenAtom);
+        console.log({backendURL,token})
+        return {backendURL,token}
+    }
+})
+
+export const loadCreditSelector = selector({
+    key: 'loadCreditSelector',
+    get: ({get})=>{
+        const backendURL = get(backendUrlAtom);
+        const token = get(tokenAtom);
+        return {backendURL, token}
+    }
 })

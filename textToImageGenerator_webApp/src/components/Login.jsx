@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { backendUrlAtom, exitAtom, loginAtom, tokenAtom, userAtom } from '../atom/Atom'
+import { backendUrlAtom, creditAtom, exitAtom, loadCreditAtom, loadCreditSelector, loginAtom, tokenAtom, userAtom } from '../atom/Atom'
 import { assets } from '../assets/assets';
 import axios from 'axios'
 // import { useGSAP } from '@gsap/react';
@@ -19,7 +19,10 @@ export default function Login() {
 
     const [token, setToken] = useRecoilState(tokenAtom);
     const backendUrl = useRecoilValue(backendUrlAtom);
+    const loadCredit = useRecoilValue(loadCreditSelector);
+    
     // console.log("BKNDURL=> ", backendUrl)
+    console.log(loadCredit);
 
     // SignIn/Up form animation
     useGSAP(()=>{
@@ -71,6 +74,8 @@ export default function Login() {
         : 
         document.body.style.overflow='unset'
     })
+
+    // useEffect(()=>loadCredit, [])
 
   return (
     <>
