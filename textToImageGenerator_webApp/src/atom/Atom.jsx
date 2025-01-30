@@ -37,21 +37,14 @@ export const tokenAtom = atom({
 })
 
 // -------------------- FETCH CREDIT API -------------------------
-export const loadCreditAtom = atomFamily({
-    key:'loadCreditAtom',
-    get:({get})=>{
-        const backendURL= get(backendUrlAtom);
-        const token = get(tokenAtom);
-        console.log({backendURL,token})
-        return {backendURL,token}
-    }
-})
 
 export const loadCreditSelector = selector({
     key: 'loadCreditSelector',
-    get: ({get})=>{
+    get: async({get})=>{
         const backendURL = get(backendUrlAtom);
         const token = get(tokenAtom);
-        return {backendURL, token}
+        // fetch /credit API
+         const {data} = await axios.get(backendURL+'/api/user/credit', {headers:{token}})
+        .then((d)=>console.log("Above promise contains:=> ", d))
     }
 })
