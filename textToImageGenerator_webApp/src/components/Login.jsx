@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { backendUrlAtom,  exitAtom, loadCreditSelector, loginAtom, tokenAtom, userAtom } from '../atom/Atom'
+import { backendUrlAtom,  creditAtom,  exitAtom, loadCreditSelector, loginAtom, tokenAtom, userAtom } from '../atom/Atom'
 import { assets } from '../assets/assets';
 import axios from 'axios'
 // import { useGSAP } from '@gsap/react';
@@ -12,6 +12,7 @@ export default function Login() {
     const [sign, setSign] = useRecoilState(loginAtom);
     const [exit, setExit] = useRecoilState(exitAtom);
     const [user, setUser] = useRecoilState(userAtom);
+    const [credit, setCredit] = useRecoilState(creditAtom);
     // update name,email & password
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -23,7 +24,11 @@ export default function Login() {
     
     // console.log("BKNDURL=> ", backendUrl)
     useEffect(()=>{
-        console.log("ldcr: ",loadCredit.data.userCredit);
+        // console.log("ldcr: ",loadCredit.data.userCredit);
+        if(token){
+            setUser(loadCredit.data.name)
+            setCredit(loadCredit.data.userCredit);
+        }
         
     }, [token])
     // SignIn/Up form animation

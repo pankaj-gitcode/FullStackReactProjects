@@ -37,7 +37,7 @@ export default function Navbar() {
                 <p className='text-[15px] text-[#4A4A4A] text-xs sm:text-sm font-medium'>Credit left: <span>{credit}</span></p>
               </div>
                                 {/* ------- USER NAME ------ */}
-                <h1 className=' max-sm:hidden pl-4'>Hi! {name}</h1>
+                <h1 className=' max-sm:hidden pl-4'>Hi! {user}</h1>
 
               <div className='group relative '>
                 <img src={assets.profile_icon} alt={assets.profile_icon} className='w-10 drop-shadow-[2px_1px_8px_rgba(0,0,0,0.3)]' />
