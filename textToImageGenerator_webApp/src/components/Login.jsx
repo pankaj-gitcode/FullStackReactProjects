@@ -22,8 +22,10 @@ export default function Login() {
     const loadCredit = useRecoilValue(loadCreditSelector);
     
     // console.log("BKNDURL=> ", backendUrl)
-    console.log("ldcr: ",loadCredit);
-
+    useEffect(()=>{
+        console.log("ldcr: ",loadCredit.data.userCredit);
+        
+    }, [token])
     // SignIn/Up form animation
     useGSAP(()=>{
         gsap.fromTo('#login', {

@@ -45,6 +45,8 @@ export const loadCreditSelector = selector({
         const token = get(tokenAtom);
         // fetch /credit API
          const {data} = await axios.get(backendURL+'/api/user/credit', {headers:{token}})
-        .then((d)=>console.log("Above promise contains:=> ", d))
+        // .then((d)=>console.log("Above promise contains:=> ", d))
+        console.log('API data: ', data)
+        return {data};
     }
 })
