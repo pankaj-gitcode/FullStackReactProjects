@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { backendUrlAtom,  creditAtom,  exitAtom, loadCreditSelector, loginAtom, tokenAtom, userAtom } from '../atom/Atom'
+import { backendUrlAtom,  creditAtom,  exitAtom, loginAtom, tokenAtom, userAtom } from '../atom/Atom'
 import { assets } from '../assets/assets';
 import axios from 'axios'
 // import { useGSAP } from '@gsap/react';
@@ -20,17 +20,34 @@ export default function Login() {
 
     const [token, setToken] = useRecoilState(tokenAtom);
     const backendUrl = useRecoilValue(backendUrlAtom);
-    const loadCredit = useRecoilValue(loadCreditSelector);
+    // const loadCredit = useRecoilValue(loadCreditSelector());
     
     // console.log("BKNDURL=> ", backendUrl)
-    useEffect(()=>{
-        // console.log("ldcr: ",loadCredit.data.userCredit);
-        if(token){
-            setUser(loadCredit.data.name)
-            setCredit(loadCredit.data.userCredit);
-        }
+    // useEffect(()=>{
+    //     // console.log("ldcr: ",loadCredit.data.userCredit);
+    //     // if(token){
+    //     //     setUser(loadCredit.data.name)
+    //     //     setCredit(loadCredit.data.userCredit);
+    //     // }
+    //     console.log("creditFunc: ", loadCredit())
         
+    // }, [token])
+    const loadCredit = async()=>{
+
+        const {data} = await axios.get(backendUrl+'/api/user/credit', {headers:{token}})
+        .then(res=>{
+            console.log('pro: ',res.data)
+            setUser(res.data.name);
+            setCredit(res.data.userCredit)
+        })
+        
+        
+    }
+    useEffect(()=>{
+        console.log("credit: ", loadCredit())
+        if(token){loadCredit();}
     }, [token])
+
     // SignIn/Up form animation
     useGSAP(()=>{
         gsap.fromTo('#login', {

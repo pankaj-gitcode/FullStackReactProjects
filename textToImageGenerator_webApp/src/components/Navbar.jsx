@@ -2,21 +2,28 @@ import React, { useState } from 'react'
 import { assets } from '../assets/assets'
 import {useNavigate} from 'react-router-dom'
 import {useRecoilState, useRecoilValue } from 'recoil';
-import { creditAtom, exitAtom, userAtom } from '../atom/Atom';
+import { creditAtom, exitAtom, tokenAtom, userAtom } from '../atom/Atom';
 
 
 export default function Navbar() {
   // const logoToHomeNav = useNavigate();
   const navigate = useNavigate();
   // const navToBuy = useNavigate();
-  const user = useRecoilValue(userAtom);
+  const [user, setUser] = useRecoilState(userAtom);
   const [exit, setExit] = useRecoilState(exitAtom);
+  const [token,setToken] = useRecoilState(tokenAtom);
   
   const credit = useRecoilValue(creditAtom);
-  const [name, setName] = useState('Raj');
+  
+
+   console.log("navbar_userName: ",user)
+    const logoutHandler = ()=>{
+      localStorage.removeItem('token');
+      setToken('');
+      setUser(null)
+    }
 
 
-   console.log(user)
   return (
     <div id='navbar'>
        
@@ -44,7 +51,7 @@ export default function Navbar() {
                                   {/* --------- LOGOUT BLOCK -------- */}
                 <div className='absolute z-10 pt-12 rounded top-0 right-0 hidden group-hover:block  cursor-pointer'>
                   <ul className='list-none bg-white border rounded-md p-2 m-0 text-sm'>
-                    <li>Logout</li>
+                    <li onClick={()=>logoutHandler()}>Logout</li>
                   </ul>
                 </div>
 

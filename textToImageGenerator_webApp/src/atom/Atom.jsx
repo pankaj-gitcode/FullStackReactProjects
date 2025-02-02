@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { atom, atomFamily, constSelector, selector, useRecoilValue } from "recoil";
+import { atom, atomFamily, constSelector, selector, selectorFamily, useRecoilValue } from "recoil";
 
 
 // -------- LOGGED-IN USER ----------
@@ -38,15 +38,25 @@ export const tokenAtom = atom({
 
 // -------------------- FETCH CREDIT API -------------------------
 
-export const loadCreditSelector = selector({
-    key: 'loadCreditSelector',
-    get: async({get})=>{
-        const backendURL = get(backendUrlAtom);
-        const token = get(tokenAtom);
-        // fetch /credit API
-         const {data} = await axios.get(backendURL+'/api/user/credit', {headers:{token}})
-        // .then((d)=>console.log("Above promise contains:=> ", d))
-        console.log('API data: ', data)
-        return {data};
-    }
-})
+// export const loadCreditSelector = selector({
+//     key: 'loadCreditSelector',
+//     get: async({get})=>{
+//         const backendURL = get(backendUrlAtom);
+//         const token = get(tokenAtom);
+//         // fetch /credit API
+//          const {data} = await axios.get(backendURL+'/api/user/credit', {headers:{token}})
+//         // .then((d)=>console.log("Above promise contains:=> ", d))
+//         console.log('API data: ', data)
+//         return {data};
+//     }
+// })
+
+// export const loadCreditSelector = selectorFamily({
+//      key: 'loadCreditSelector',
+//      get: async({get})=>{
+//         const backendURL = get(backendUrlAtom);
+//         const token = get(tokenAtom);
+//         const res = await axios.get(backendURL+'/api/user/credit', {headers:{token}});
+//         return res;
+//      }
+// })
