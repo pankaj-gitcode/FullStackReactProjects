@@ -15,9 +15,10 @@ export default function Navbar() {
   
   const credit = useRecoilValue(creditAtom);
   
-
    console.log("navbar_userName: ",user)
+   // ----- LOGOUT HANDLER -----
     const logoutHandler = ()=>{
+        // remove current token,setToken to empty and user:null
       localStorage.removeItem('token');
       setToken('');
       setUser(null)

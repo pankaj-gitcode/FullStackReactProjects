@@ -23,12 +23,17 @@ export default function Login() {
    
     // ----- fetch /user/credit API -----
     const loadCredit = async()=>{
-         await axios.get(backendUrl+'/api/user/credit', {headers:{token}})
-        .then(res=>{
-            console.log('pro: ',res.data)
-            setUser(res.data.name);
-            setCredit(res.data.userCredit)
-        })  
+        try{
+            await axios.get(backendUrl+'/api/user/credit', {headers:{token}})
+            .then(res=>{
+                console.log('pro: ',res.data)
+                if(res.data.success){
+                setUser(res.data.name);
+                setCredit(res.data.userCredit)
+                }
+            })
+        } 
+        catch(err){console.log('ERROR: ', err.message)} 
     }
     useEffect(()=>{
         // console.log("credit: ", loadCredit())
@@ -134,7 +139,7 @@ export default function Login() {
                 <div className='bg-[#007AFF] rounded-full text-center py-3 
                 text-lg active:scale-105 cursor-pointer duration-300 
                 transition ease-in-out my-3'>
-                    <button className='text-[#fff]'>{sign}</button>
+                    <button className='text-[#fff]  w-full '>{sign}</button>
                 </div>
 
                     {/* ----------- SIGN/UP FLIP PARA --------- */}
