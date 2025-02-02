@@ -20,35 +20,22 @@ export default function Login() {
 
     const [token, setToken] = useRecoilState(tokenAtom);
     const backendUrl = useRecoilValue(backendUrlAtom);
-    // const loadCredit = useRecoilValue(loadCreditSelector());
-    
-    // console.log("BKNDURL=> ", backendUrl)
-    // useEffect(()=>{
-    //     // console.log("ldcr: ",loadCredit.data.userCredit);
-    //     // if(token){
-    //     //     setUser(loadCredit.data.name)
-    //     //     setCredit(loadCredit.data.userCredit);
-    //     // }
-    //     console.log("creditFunc: ", loadCredit())
-        
-    // }, [token])
+   
+    // ----- fetch /user/credit API -----
     const loadCredit = async()=>{
-
-        const {data} = await axios.get(backendUrl+'/api/user/credit', {headers:{token}})
+         await axios.get(backendUrl+'/api/user/credit', {headers:{token}})
         .then(res=>{
             console.log('pro: ',res.data)
             setUser(res.data.name);
             setCredit(res.data.userCredit)
-        })
-        
-        
+        })  
     }
     useEffect(()=>{
-        console.log("credit: ", loadCredit())
+        // console.log("credit: ", loadCredit())
         if(token){loadCredit();}
     }, [token])
 
-    // SignIn/Up form animation
+    // ----- SignIn/Up form animation -----
     useGSAP(()=>{
         gsap.fromTo('#login', {
             y:50, opacity:0.2
@@ -58,7 +45,7 @@ export default function Login() {
 
     // handle signin and sinup :form
     const submitHandler = async (e)=>{
-        e.preventDefault();
+        e.preventDefault(); //stop unnecessary render
         try{
         // ------------ LOGIN -------------
         if(sign === 'Login'){

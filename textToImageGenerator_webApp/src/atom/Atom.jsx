@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { atom, atomFamily, constSelector, selector, selectorFamily, useRecoilValue } from "recoil";
+import { atom, selector } from "recoil";
 
 
 // -------- LOGGED-IN USER ----------
@@ -51,12 +51,3 @@ export const tokenAtom = atom({
 //     }
 // })
 
-// export const loadCreditSelector = selectorFamily({
-//      key: 'loadCreditSelector',
-//      get: async({get})=>{
-//         const backendURL = get(backendUrlAtom);
-//         const token = get(tokenAtom);
-//         const res = await axios.get(backendURL+'/api/user/credit', {headers:{token}});
-//         return res;
-//      }
-// })
