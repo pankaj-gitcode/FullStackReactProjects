@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { atom, selector } from "recoil";
+import { assets } from "../assets/assets";
 
 
 // -------- LOGGED-IN USER ----------
@@ -24,6 +25,27 @@ export const exitAtom = atom({
     key: 'exitAtom',
     default: 0
 })
+
+    // ----- PROMPT -----
+export const promptAtom = atom({
+    key: 'promptAtom',
+    default: ''
+})
+
+    // ----- IMAGE-LOADING -----
+export const loadedImgAtom = atom({
+    key: 'loadedImgAtom',
+    default: assets.scrollImages[1]
+})
+export const isImgLoadingAtom = atom({
+    key:'isImgLoadingAtom',
+    default: false
+})
+export const isLoadingAtom = atom({
+    key: 'isLoadingAtom',
+    default: false
+})
+
 
 //  ------ BACKEND TO FRONTEND ---------
 export const backendUrlAtom = atom({

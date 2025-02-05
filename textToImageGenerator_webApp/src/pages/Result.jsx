@@ -1,13 +1,38 @@
 import React, { useState } from 'react'
 import { assets } from '../assets/assets'
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { backendUrlAtom, isImgLoadingAtom, isLoadingAtom, loadedImgAtom, promptAtom, tokenAtom } from '../atom/Atom';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export default function Result() {
-  const [isImgLoading, setIsImgLoading] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [prompt, setPrompt] = useState('') // store user's prompt
+  const [isImgLoading, setIsImgLoading] = useRecoilState(isImgLoadingAtom);
+  const [img, setImg] = useRecoilState(loadedImgAtom);
+  const [isLoading, setIsLoading] = useRecoilState(isLoadingAtom);
+  const [prompt, setPrompt] = useRecoilState(promptAtom);  // store user's prompt
+  const backendURL = useRecoilValue(backendUrlAtom);
+  const token = useRecoilValue(tokenAtom);
+
+  // ---------- IMAGE API ----------
+  const generateImg = async()=>{
+    try{
+      const {data} = await axios.post(`${backendURL}/api/image/generate-image`, {prompt}, {headers:{token}})
+      if(data.success){
+        setIsImgLoading(true)
+        setImg(data.resultImage)
+        setIsLoading(true)
+      }
+    }
+    catch(err){
+      toast.error(err.message);
+    }
+  }
+
 
   const submitHandler = async(e)=>{
     console.log('Hello')
+    e.preventDefault();
+    generateImg()
   }
 
   console.log("INPUT=> ", prompt)
@@ -16,7 +41,7 @@ export default function Result() {
 
         {/* --------- IMAGE, LINE, LOADING ---------- */}
       <div className='relative'>
-        <img src={assets.scrollImages[0]} alt={assets.scrollImages[0]} 
+        <img src={img} alt={img} 
           className='max-w-sm rounded'
         />
         <span className={`absolute h-1 bg-blue-500 left-0 bottom-0 ${isImgLoading?'': `min-w-full transition-all ease-in-out`}`}/>

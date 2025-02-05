@@ -13,7 +13,7 @@ export const imageController= async(req,res)=>{
 
     // if data missing
     if(!userId || !prompt){
-        return res.status(400).json({success:false, message: 'Mssing Data...'});
+        return res.status(400).json({success:false, message: 'Missing Data...'});
     }
 
     // no credit
