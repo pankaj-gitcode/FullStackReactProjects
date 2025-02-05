@@ -17,7 +17,7 @@ export const imageController= async(req,res)=>{
     }
 
     // no credit
-    if(user.creditBalance === 0 || userModel.createBalance < 0){
+    if(user.creditBalance === 0 || user.createBalance < 0){
         return res.json(404).json({success: false, message:'No Credit...'})
     }
 
@@ -32,8 +32,8 @@ export const imageController= async(req,res)=>{
         }
     )
     // convert arrayBuffer from binary to base64
-    const base64Image = Buffer.from(data , 'binary').toString('base64');
-    const resultImage = `data:image/png;base64, ${base64Image}`
+    const base64Image = Buffer.from(data ).toString('base64');
+    const resultImage = `data:image/png;base64,${base64Image}`
 
     // user used image, decrement in creditBalance, update the same in DB
     await userModel.findByIdAndUpdate(user._id, {creditBalance:user.creditBalance-1});

@@ -70,7 +70,7 @@ export default function Result() {
           active:scale-105 ease-in-out duration-300'
           onClick={()=>setIsImgLoading(false)}>Generate Another</p>
 
-        <a href="" download className='flex-1 bg-zinc-900 rounded-full
+        <a href={img} download className='flex-1 bg-zinc-900 rounded-full
          text-white text-center px-3 md:px-9 py-2 coursor-pointer active:scale-105 ease-in-out duration-300'>Download</a>
       </div>
       }
