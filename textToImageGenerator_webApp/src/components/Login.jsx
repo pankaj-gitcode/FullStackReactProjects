@@ -33,7 +33,7 @@ export default function Login() {
                 }
             })
         } 
-        catch(err){console.log('ERROR: ', err.message)} 
+        catch(err){toast.error(`${err.message}, no Credit left`)} 
     }
     useEffect(()=>{  
         // console.log("credit: ", loadCredit())
