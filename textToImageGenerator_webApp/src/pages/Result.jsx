@@ -48,7 +48,8 @@ export default function Result() {
         <img src={img} alt={img} 
           className='max-w-sm rounded'
         />
-        <span className={`absolute h-1 bg-blue-500 left-0 bottom-0 ${isImgLoading?'': `min-w-full transition-all ease-in-out`}`}/>
+        {/* <span className={`absolute h-1 bg-blue-500 left-0 bottom-0 ${isImgLoading?'': `min-w-full transition-all duration-[10s] ease-in-out`}`}/> */}
+        <span className={`absolute h-1 bg-blue-500 left-0 bottom-0 ${isLoading?'min-w-full transition-all duration-[10s] ease-in-out': 'w-0'}`}/>
       </div>
         <p className={isLoading?`text-[6vw] sm:text-[2vw] md:text-[3.8vw] lg:text-[1.5vw]`: `hidden`}>Loading...</p>
 
@@ -61,7 +62,7 @@ export default function Result() {
         placeholder='Describe what you want to generate'
           className='flex-1 bg-transparent w-96 max-sm:w-30 pl-6 pr-16 py-3 md:py-2 text-lg sm:text-sm outline-none text-[#e0e0e0]' />
         
-        <button className='bg-zinc-900 rounded-full text-xl sm:text-sm px-2 sm:px-5 active:scale-105 ease-in-out duration-300 text-white'>Generate</button>
+        <button type='submit' className='bg-zinc-900 rounded-full text-xl sm:text-sm px-2 sm:px-5 active:scale-105 ease-in-out duration-300 text-white'>Generate</button>
       </div>
       }
 
