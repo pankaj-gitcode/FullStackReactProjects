@@ -18,9 +18,7 @@ export default function Result() {
     try{
       const {data} = await axios.post(`${backendURL}/api/image/generate-image`, {prompt}, {headers:{token}})
       if(data.success){
-        setIsImgLoading(true)
-        setImg(data.resultImage)
-        setIsLoading(true)
+        return data.resultImage;
       }
     }
     catch(err){
@@ -30,9 +28,15 @@ export default function Result() {
 
 
   const submitHandler = async(e)=>{
-    console.log('Hello')
     e.preventDefault();
-    generateImg()
+    // once prompt entered generateImg() called and 
+    if(prompt){
+      const image = await generateImg();
+      setImg(image);
+      setIsImgLoading(true);
+      setIsLoading(true);
+    }
+    
   }
 
   console.log("INPUT=> ", prompt)

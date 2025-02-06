@@ -35,7 +35,7 @@ export default function Login() {
         } 
         catch(err){console.log('ERROR: ', err.message)} 
     }
-    useEffect(()=>{
+    useEffect(()=>{  
         // console.log("credit: ", loadCredit())
         if(token){loadCredit();}
     }, [token])
