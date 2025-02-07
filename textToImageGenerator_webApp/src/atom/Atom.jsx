@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { atom, selector } from "recoil";
+import { atom, selector, selectorFamily } from "recoil";
 import { assets } from "../assets/assets";
 
 
@@ -73,7 +73,27 @@ export const tokenAtom = atom({
 //     }
 // })
 
-const fetchCreditData = async()=>{
-    const backendURL = import.meta.env.BACKEND_URL;
-    const response = await axios.get(`${backendURL}/api/user/credit`, {headers:{token}})
-}
+// const fetchCreditData = async(prop)=>{
+//     try{
+//         const backendURL = import.meta.env.BACKEND_URL;
+//         const response = await axios.get(`${backendURL}/api/user/credit`, {headers:{prop.tokenAtom}});
+//         return response.data;
+
+//     }
+//     catch(err){console.log(err.message); return err.message;}
+// }
+
+export const creditSelector = selectorFamily({
+    key: 'creditSelector',
+    get: ()=>async({get})=>{
+        try{
+            const backendURL = get(backendUrlAtom);
+            const token = get(tokenAtom);
+            const response = await axios.get(backendURL+'/api/user/credit', {headers:{token}})
+            return response.data;
+        }
+        catch(err){
+            console.error(err.message);
+        }
+    }
+})
