@@ -73,3 +73,7 @@ export const tokenAtom = atom({
 //     }
 // })
 
+const fetchCreditData = async()=>{
+    const backendURL = import.meta.env.BACKEND_URL;
+    const response = await axios.get(`${backendURL}/api/user/credit`, {headers:{token}})
+}
