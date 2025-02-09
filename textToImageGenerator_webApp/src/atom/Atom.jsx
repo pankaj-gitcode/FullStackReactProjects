@@ -7,7 +7,7 @@ import { assets } from "../assets/assets";
 // -------- LOGGED-IN USER ----------
 export const  userAtom = atom({
     key: 'userAtom',
-    default:0
+    default:''
 })
 
 // ------- CREDIT -------

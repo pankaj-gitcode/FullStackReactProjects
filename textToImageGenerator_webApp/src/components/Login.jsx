@@ -20,43 +20,9 @@ export default function Login() {
 
     const [token, setToken] = useRecoilState(tokenAtom);
     const backendUrl = useRecoilValue(backendUrlAtom);
-    // const creditData = useRecoilValue(creditSelector());
-
     
-   
-    // ----- fetch /user/credit API -----
-    const loadCredit = async()=>{
-        try{
-            await axios.get(backendUrl+'/api/user/credit', {headers:{token}})
-            .then(res=>{
-                console.log('pro: ',res.data)
-                if(res.data.success){
-                setUser(res.data.name);
-                setCredit(res.data.userCredit)
-                }
-            })
-        } 
-        catch(err){toast.error(`${err.message}, no Credit left`)} 
-    }
-    const loadCreditData = async()=>{
-        const response = await fetchCreditData(backendUrl, token);
-        
-        console.log("FROM LOGIN COMPONENT: ", response.name)
-        return response.data;
-    }
-    loadCreditData();
-    // console.log('CHECK IT OUT: ', [{status: creditData.success, userCred: creditData.userCredit, name: creditData.name}])
-    // console.log('CHECK IT OUT: ', creditData())
     
-    useEffect(()=>{  
-        // console.log("credit: ", loadCredit())
-        
-        
-
-        if(token){loadCredit(); }
-    }, [token])
-
-    // ----- SignIn/Up form animation -----
+    // ----- GSAP: SignIn/Up form animation -----
     useGSAP(()=>{
         gsap.fromTo('#login', {
             y:50, opacity:0.2
@@ -64,43 +30,53 @@ export default function Login() {
 
     })
 
-    // handle signin and sinup :form
-    const submitHandler = async (e)=>{
-        e.preventDefault(); //stop unnecessary render
+    // ----- FORM: handler signin and sinup -----
+    const submitHandler = async(e)=>{
+        e.preventDefault(); //stop unnecessary refresh
+
         try{
-        // ------------ LOGIN -------------
-        if(sign === 'Login'){
-            // fetch /api/user/login API
-           const {data} =  await axios.post(backendUrl+'/api/user/signin', {email,password});
-           if(data.success){
-            setToken(data.token);
-            setUser(1);
-            setName(data.name);
-            localStorage.setItem('token',data.token);
-            setExit(0);
-           }
-           else{
-            toast.error(data.message)
-           }
-        }
-        // ------------ SIGNUP -------------
-        else{
-            const {data} = await axios.post(backendUrl+'/api/user/signup', {name, email, password});
-            if(data.success){
-                setToken(data.token);
-                setName(data.name);
-                localStorage.setItem('token',data.token);
-                setExit(0);
+            // ----- LOGIN -----
+            if(sign === 'Login'){
+                const {data} = await axios.post(backendUrl+'/api/user/signin', {email,password})
+                if(data.success){
+                    console.log('LOGIN HANDLER: ', data);
+                    setUser(data.user);
+                    setToken(data.token);
+                    localStorage.setItem('token', data.token)//set the token to localStorage
+                    setExit(0);
+                }
+                else{toast.error(data.message)}
             }
-            else{toast.error(data.message)}
+            // ----- SIGNUP -----
+            else{
+                const {data} = await axios.post(backendUrl+'/api/user/signup', {name, email, password})
+                if(data.success){
+                    console.log('SIGNUP HANDLER: ', data);
+                    setToken(data.token);
+                    setExit(0);
+                }
+                else{toast.error(data.message)}
+            }
         }
-        }
-        catch(err){
-            toast.error(err.message)
-        }
+        catch(err){toast.error('SubmitHandler: ',err.message)}
     }
 
-     // stop from scrolling
+    console.log("USER_NAME: => ", user)
+    // ----- fetch /user/credit API -----
+    const creditPoints = async()=>{
+        const credit = await fetchCreditData(backendUrl, token);
+        console.log("CREDIT: ",credit)
+        setCredit(credit.userCredit)
+        setUser(credit.name)
+        return credit;
+    }
+    useEffect(()=>{
+        if(token)creditPoints();
+        
+    }, [token])
+
+
+     // ----- stop from scrolling -----
      useEffect(()=>{
         exit? document.body.style.overflow='hidden'
         : 
@@ -155,7 +131,7 @@ export default function Login() {
                 <div className='bg-[#007AFF] rounded-full text-center py-3 
                 text-lg active:scale-105 cursor-pointer duration-300 
                 transition ease-in-out my-3'>
-                    <button className='text-[#fff]  w-full '>{sign}</button>
+                    <button type='submit' className='text-[#fff]  w-full '>{sign}</button>
                 </div>
 
                     {/* ----------- SIGN/UP FLIP PARA --------- */}
