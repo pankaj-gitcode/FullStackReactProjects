@@ -60,40 +60,38 @@ export const tokenAtom = atom({
 
 // -------------------- FETCH CREDIT API -------------------------
 
-// export const loadCreditSelector = selector({
-//     key: 'loadCreditSelector',
-//     get: async({get})=>{
-//         const backendURL = get(backendUrlAtom);
-//         const token = get(tokenAtom);
-//         // fetch /credit API
-//          const {data} = await axios.get(backendURL+'/api/user/credit', {headers:{token}})
-//         // .then((d)=>console.log("Above promise contains:=> ", d))
-//         console.log('API data: ', data)
-//         return {data};
+// export const creditSelector = selectorFamily({
+//     key: 'creditSelector',
+//     get: ()=>async({get})=>{
+//         try{
+//             const backendURL = get(backendUrlAtom);
+//             const token = get(tokenAtom);
+//             const response = await axios.get(backendURL+'/api/user/credit', {headers:{token}})
+//             return response.data;
+//         }
+//         catch(err){
+//             console.error(err.message);
+//         }
 //     }
 // })
 
-// const fetchCreditData = async(prop)=>{
-//     try{
-//         const backendURL = import.meta.env.BACKEND_URL;
-//         const response = await axios.get(`${backendURL}/api/user/credit`, {headers:{prop.tokenAtom}});
-//         return response.data;
-
-//     }
-//     catch(err){console.log(err.message); return err.message;}
-// }
-
-export const creditSelector = selectorFamily({
-    key: 'creditSelector',
-    get: ()=>async({get})=>{
-        try{
-            const backendURL = get(backendUrlAtom);
-            const token = get(tokenAtom);
-            const response = await axios.get(backendURL+'/api/user/credit', {headers:{token}})
-            return response.data;
-        }
-        catch(err){
-            console.error(err.message);
-        }
+// function to fetch credit data from API to be used in selector()
+export const fetchCreditData = async(backendURL, token)=>{
+    try{
+        const response = await axios.get(backendURL+'/api/user/credit', {headers: {token}});
+        return response.data;
+    }
+    catch(err){console.error('ERROR-ATOM: ', err.message); throw err};
+}
+// invoke the fetchCreditData() 
+export const creditDataSelector = selector({
+    key: 'creditDataSelector',
+    get: async({get})=>{
+        const URL = get(backendUrlAtom);
+        const token = get(tokenAtom);
+        const creditPoints = await fetchCreditData(URL,token);
+        return creditPoints;
     }
 })
+
+

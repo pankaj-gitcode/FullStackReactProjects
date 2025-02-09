@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { backendUrlAtom,  creditAtom,  exitAtom, loginAtom, tokenAtom, userAtom, creditSelector} from '../atom/Atom'
+import { backendUrlAtom,  creditAtom,  exitAtom, fetchCreditData, loginAtom, tokenAtom, userAtom} from '../atom/Atom'
 import { assets } from '../assets/assets';
 import axios from 'axios'
 // import { useGSAP } from '@gsap/react';
@@ -20,7 +20,7 @@ export default function Login() {
 
     const [token, setToken] = useRecoilState(tokenAtom);
     const backendUrl = useRecoilValue(backendUrlAtom);
-    const creditData = useRecoilValue(creditSelector());
+    // const creditData = useRecoilValue(creditSelector());
 
     
    
@@ -38,7 +38,16 @@ export default function Login() {
         } 
         catch(err){toast.error(`${err.message}, no Credit left`)} 
     }
-    console.log('CHECK IT OUT: ', [{status: creditData.success, userCred: creditData.userCredit, name: creditData.name}])
+    const loadCreditData = async()=>{
+        const response = await fetchCreditData(backendUrl, token);
+        
+        console.log("FROM LOGIN COMPONENT: ", response.name)
+        return response.data;
+    }
+    loadCreditData();
+    // console.log('CHECK IT OUT: ', [{status: creditData.success, userCred: creditData.userCredit, name: creditData.name}])
+    // console.log('CHECK IT OUT: ', creditData())
+    
     useEffect(()=>{  
         // console.log("credit: ", loadCredit())
         

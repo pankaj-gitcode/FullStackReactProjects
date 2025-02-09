@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { assets } from '../assets/assets'
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { backendUrlAtom, isImgLoadingAtom, isLoadingAtom, loadedImgAtom, promptAtom, tokenAtom } from '../atom/Atom';
+import { backendUrlAtom, fetchCreditData, isImgLoadingAtom, isLoadingAtom, loadedImgAtom, promptAtom, tokenAtom } from '../atom/Atom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+
+
 
 export default function Result() {
   const [isImgLoading, setIsImgLoading] = useRecoilState(isImgLoadingAtom);
@@ -12,6 +14,13 @@ export default function Result() {
   const [prompt, setPrompt] = useRecoilState(promptAtom);  // store user's prompt
   const backendURL = useRecoilValue(backendUrlAtom);
   const token = useRecoilValue(tokenAtom);
+
+  const points = async()=>{
+    const creditPoints = await fetchCreditData(backendURL, token);
+    console.log('HERE IS: ', creditPoints)
+    return creditPoints
+  }
+  points()
 
   // ---------- IMAGE API ----------
   const generateImg = async()=>{
