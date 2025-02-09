@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { assets } from '../assets/assets'
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { backendUrlAtom, fetchCreditData, isImgLoadingAtom, isLoadingAtom, loadedImgAtom, promptAtom, tokenAtom } from '../atom/Atom';
+import { backendUrlAtom, creditAtom, fetchCreditData, isImgLoadingAtom, isLoadingAtom, loadedImgAtom, promptAtom, tokenAtom, userAtom } from '../atom/Atom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
@@ -14,13 +14,24 @@ export default function Result() {
   const [prompt, setPrompt] = useRecoilState(promptAtom);  // store user's prompt
   const backendURL = useRecoilValue(backendUrlAtom);
   const token = useRecoilValue(tokenAtom);
+  const [credit, setCredit] = useRecoilState(creditAtom);
+  const [user, setUser] = useRecoilState(userAtom);
 
   const points = async()=>{
-    const creditPoints = await fetchCreditData(backendURL, token);
-    console.log('HERE IS: ', creditPoints)
-    return creditPoints
+    try{
+
+      const creditPoints = await fetchCreditData(backendURL, token);
+      if(creditPoints.success){
+        console.log('HERE IS: ', [creditPoints.success, creditPoints.userCredit, creditPoints.name]);
+        setCredit(creditPoints.userCredit)
+        setUser(creditPoints.name);
+        return creditPoints
+      }
+      else{toast.error('Error in fetching credit API')}
+    }
+    catch(err){toast.error(err.message)}
   }
-  points()
+  
 
   // ---------- IMAGE API ----------
   const generateImg = async()=>{
@@ -44,11 +55,13 @@ export default function Result() {
       setImg(image);
       setIsImgLoading(true);
       setIsLoading(true);
+      points();
+      
     }
     
   }
 
-  console.log("INPUT=> ", prompt)
+  // console.log("INPUT=> ", prompt)
   return (<>
     <form onSubmit={submitHandler} className='flex flex-col items-center gap-2 py-10'>
 
@@ -60,7 +73,7 @@ export default function Result() {
         {/* <span className={`absolute h-1 bg-blue-500 left-0 bottom-0 ${isImgLoading?'': `min-w-full transition-all duration-[10s] ease-in-out`}`}/> */}
         <span className={`absolute h-1 bg-blue-500 left-0 bottom-0 ${isLoading?'min-w-full transition-all duration-[10s] ease-in-out': 'w-0'}`}/>
       </div>
-        <p className={isLoading?`text-[6vw] sm:text-[2vw] md:text-[3.8vw] lg:text-[1.5vw]`: `hidden`}>Loading...</p>
+        {/* <p className={isLoading?`text-[6vw] sm:text-[2vw] md:text-[3.8vw] lg:text-[1.5vw]`: `hidden`}>Loading...</p> */}
 
         {/* ---------- INPUT, BUTTON ------- */}
       {

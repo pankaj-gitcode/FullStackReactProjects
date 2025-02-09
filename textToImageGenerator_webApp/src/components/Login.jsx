@@ -61,7 +61,6 @@ export default function Login() {
         catch(err){toast.error('SubmitHandler: ',err.message)}
     }
 
-    console.log("USER_NAME: => ", user)
     // ----- fetch /user/credit API -----
     const creditPoints = async()=>{
         const credit = await fetchCreditData(backendUrl, token);
