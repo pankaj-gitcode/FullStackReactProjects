@@ -17,8 +17,8 @@ export const imageController= async(req,res)=>{
     }
 
     // no credit
-    if(user.creditBalance === 0 || user.createBalance < 0){
-        return res.json(404).json({success: false, message:'No Credit...'})
+    if(user.creditBalance === 0 || user.creditBalance < 0){
+        return res.status(404).json({success: false, message:'No Credit...'})
     }
 
     // declare formData
@@ -47,7 +47,7 @@ export const imageController= async(req,res)=>{
     })
 }
 catch(err){
-    res.status(503).json({success:true, message: `ERROR: ${err.message}`})
+    res.status(503).json({success:false, message: `ERROR: ${err.message}`})
 }
 
 }

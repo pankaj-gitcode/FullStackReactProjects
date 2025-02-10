@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect } from "react";
 import { atom, selector, selectorFamily } from "recoil";
 import { assets } from "../assets/assets";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 
 // -------- LOGGED-IN USER ----------
@@ -74,9 +76,9 @@ export const tokenAtom = atom({
 //         }
 //     }
 // })
-
 // function to fetch credit data from API to be used in selector()
 export const fetchCreditData = async(backendURL, token)=>{
+    
     try{
         const response = await axios.get(backendURL+'/api/user/credit', {headers: {token}});
         return response.data;

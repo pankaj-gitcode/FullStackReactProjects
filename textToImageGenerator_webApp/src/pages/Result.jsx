@@ -4,6 +4,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { backendUrlAtom, creditAtom, fetchCreditData, isImgLoadingAtom, isLoadingAtom, loadedImgAtom, promptAtom, tokenAtom, userAtom } from '../atom/Atom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -17,6 +18,8 @@ export default function Result() {
   const [credit, setCredit] = useRecoilState(creditAtom);
   const [user, setUser] = useRecoilState(userAtom);
 
+  const navigate = useNavigate();
+
   const points = async()=>{
     try{
 
@@ -25,6 +28,7 @@ export default function Result() {
         console.log('HERE IS: ', [creditPoints.success, creditPoints.userCredit, creditPoints.name]);
         setCredit(creditPoints.userCredit)
         setUser(creditPoints.name);
+
         return creditPoints
       }
       else{toast.error('Error in fetching credit API')}
@@ -37,26 +41,56 @@ export default function Result() {
   const generateImg = async()=>{
     try{
       const {data} = await axios.post(`${backendURL}/api/image/generate-image`, {prompt}, {headers:{token}})
+      console.log("DATA IMGGEN: ", data)
       if(data.success){
+        // points();
+        console.log('DATA-IMAGE-GEN: ', data)
         return data.resultImage;
+      }
+      else{
+        const noCreditPoints = await points();
+        if(noCreditPoints.userCredit === 0){
+          toast.error('No Credit Left!...');
+          navigate('/buy');
+        }
+      }
+      
+    }
+    catch(err){
+      toast.error('GENERATE-IMGE: ',err.message);
+    }
+  }
+
+  
+  const submitHandler = async(e)=>{
+    e.preventDefault();
+    try{
+
+      // once prompt entered generateImg() called and 
+      if(prompt){
+        
+        const creditCheck = await points();
+        // No userCredit 
+        if(creditCheck.userCredit === 0){
+          toast.error('No Credit Left...!');
+          navigate('/buy');
+        }
+        // user has Credit points
+        else{
+          const image = await generateImg();
+          if(image){
+            setImg(image);
+            setIsImgLoading(true);
+            setIsLoading(true);
+            points();
+          }
+        }
+        
+        
       }
     }
     catch(err){
       toast.error(err.message);
-    }
-  }
-
-
-  const submitHandler = async(e)=>{
-    e.preventDefault();
-    // once prompt entered generateImg() called and 
-    if(prompt){
-      const image = await generateImg();
-      setImg(image);
-      setIsImgLoading(true);
-      setIsLoading(true);
-      points();
-      
     }
     
   }
