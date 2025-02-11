@@ -9,7 +9,6 @@ import { creditAtom, exitAtom, tokenAtom, userAtom } from '../atom/Atom';
 
 export default function Navbar() {
   // const logoToHomeNav = useNavigate();
-  const navigate = useNavigate();
   // const navToBuy = useNavigate();
   const [user, setUser] = useRecoilState(userAtom);
   const [exit, setExit] = useRecoilState(exitAtom);
@@ -17,13 +16,16 @@ export default function Navbar() {
   
   const credit = useRecoilValue(creditAtom);
   
+  const navigate = useNavigate();
+
    console.log("navbar_userName: ",user)
    // ----- LOGOUT HANDLER -----
     const logoutHandler = ()=>{
         // remove current token,setToken to empty and user:null
       localStorage.removeItem('token');
       setToken('');
-      setUser(null)
+      setUser(null);
+      navigate('/')
     }
 
 

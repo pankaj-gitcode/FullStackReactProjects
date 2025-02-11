@@ -20,7 +20,7 @@ export default function BuyCredit() {
         opacity:0.7,
         scrollTrigger:{
           trigger: '.container',
-          markers: true,
+          // markers: true,
           scrub:1.2,
           start: 'top 20%',
           end: 'bottom 20%',

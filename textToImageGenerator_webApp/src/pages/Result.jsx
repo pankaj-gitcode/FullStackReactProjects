@@ -40,11 +40,11 @@ export default function Result() {
   // ---------- IMAGE API ----------
   const generateImg = async()=>{
     try{
+      // fetch generate-image API
       const {data} = await axios.post(`${backendURL}/api/image/generate-image`, {prompt}, {headers:{token}})
-      console.log("DATA IMGGEN: ", data)
+
       if(data.success){
-        // points();
-        console.log('DATA-IMAGE-GEN: ', data)
+        // console.log('DATA-IMAGE-GEN: ', data)
         return data.resultImage;
       }
       else{
@@ -53,20 +53,19 @@ export default function Result() {
           toast.error('No Credit Left!...');
           navigate('/buy');
         }
-      }
-      
+      } 
     }
     catch(err){
       toast.error('GENERATE-IMGE: ',err.message);
     }
   }
 
-  
+  // ----- Submit prompt -----
   const submitHandler = async(e)=>{
     e.preventDefault();
     try{
 
-      // once prompt entered generateImg() called and 
+      // once prompt entered generateImg() called  
       if(prompt){
         
         const creditCheck = await points();
@@ -84,9 +83,7 @@ export default function Result() {
             setIsLoading(true);
             points();
           }
-        }
-        
-        
+        } 
       }
     }
     catch(err){
